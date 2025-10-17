@@ -6,41 +6,113 @@ const ADMIN_AUTH_KEY = 'pirateHuntAdminAuth';
 const QUESTS_KEY = 'pirateHuntQuests';
 const ADMIN_PASSWORD = 'captain'; // Change this to your desired password
 
+// Track if login handlers have been attached
+let loginHandlersAttached = false;
+
 // Initialize Admin Panel
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Admin page DOMContentLoaded'); // Debug
+
     // Check if on admin page
-    if (!document.querySelector('.admin-container')) return;
+    if (!document.querySelector('.admin-container')) {
+        console.log('Not on admin page, exiting');
+        return;
+    }
+
+    console.log('On admin page, waiting for config...');
+
+    // Wait for config to load
+    await waitForConfig();
+
+    console.log('Config loaded:', config ? 'yes' : 'no');
 
     // Check authentication
-    if (!isAuthenticated()) {
+    const isAuth = isAuthenticated();
+    console.log('Is authenticated:', isAuth);
+
+    if (!isAuth) {
+        console.log('Not authenticated, showing login prompt');
         showLoginPrompt();
     } else {
+        console.log('Already authenticated, initializing admin panel');
+        hideLoginOverlay();
         initializeAdminPanel();
     }
 });
+
+// Wait for config to be loaded
+async function waitForConfig() {
+    let attempts = 0;
+    while (!config && attempts < 50) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        attempts++;
+    }
+    if (!config) {
+        console.error('Failed to load config');
+    }
+}
 
 // ===== AUTHENTICATION =====
 
 function isAuthenticated() {
     const auth = sessionStorage.getItem(ADMIN_AUTH_KEY);
+    console.log('Checking authentication:', auth); // Debug log
     return auth === 'true';
 }
 
+function hideLoginOverlay() {
+    const overlay = document.getElementById('admin-login-overlay');
+    if (overlay) {
+        overlay.classList.add('hidden');
+    }
+}
+
 function showLoginPrompt() {
+    console.log('showLoginPrompt called');
+
     const overlay = document.getElementById('admin-login-overlay');
     const passwordInput = document.getElementById('admin-password-input');
     const loginBtn = document.getElementById('admin-login-btn');
     const errorDiv = document.getElementById('admin-login-error');
 
+    console.log('Elements found:', {
+        overlay: !!overlay,
+        passwordInput: !!passwordInput,
+        loginBtn: !!loginBtn,
+        errorDiv: !!errorDiv
+    });
+
+    if (!overlay || !passwordInput || !loginBtn) {
+        console.error('Login elements not found!');
+        return;
+    }
+
     overlay.classList.remove('hidden');
+    console.log('Overlay shown');
+
+    // Only attach handlers once
+    if (loginHandlersAttached) {
+        console.log('Handlers already attached, just focusing input');
+        passwordInput.focus();
+        return;
+    }
+
+    console.log('Attaching event handlers...');
 
     const handleLogin = () => {
+        console.log('handleLogin called!');
         const password = passwordInput.value.trim();
+        console.log('Password length:', password.length);
+        console.log('Expected password:', ADMIN_PASSWORD);
+
         if (password === ADMIN_PASSWORD) {
+            console.log('Password correct!');
             sessionStorage.setItem(ADMIN_AUTH_KEY, 'true');
+            console.log('Auth set to:', sessionStorage.getItem(ADMIN_AUTH_KEY));
             overlay.classList.add('hidden');
             initializeAdminPanel();
         } else {
+            console.log('Password incorrect');
             errorDiv.textContent = 'Incorrect password, ye scallywag!';
             errorDiv.classList.remove('hidden');
             passwordInput.value = '';
@@ -50,11 +122,21 @@ function showLoginPrompt() {
         }
     };
 
-    loginBtn.addEventListener('click', handleLogin);
-    passwordInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') handleLogin();
+    loginBtn.addEventListener('click', () => {
+        console.log('Login button clicked!');
+        handleLogin();
     });
 
+    passwordInput.addEventListener('keypress', (e) => {
+        console.log('Key pressed:', e.key);
+        if (e.key === 'Enter') {
+            console.log('Enter key pressed!');
+            handleLogin();
+        }
+    });
+
+    loginHandlersAttached = true;
+    console.log('Event handlers attached, focusing input');
     passwordInput.focus();
 }
 
@@ -165,16 +247,19 @@ async function updateMainQuestProgress() {
 
     container.innerHTML = '';
 
+    // Guard against config not being loaded
+    const totalClues = config?.totalClues || 10;
+
     activePlayers.forEach(player => {
         const card = document.createElement('div');
         card.className = 'player-card';
 
-        const percentage = (player.cluesFound / config.totalClues) * 100;
+        const percentage = (player.cluesFound / totalClues) * 100;
 
         card.innerHTML = `
             <div class="player-header">
                 <div class="player-name">${escapeHtml(player.name)}</div>
-                <div>${player.cluesFound}/${config.totalClues} clues</div>
+                <div>${player.cluesFound}/${totalClues} clues</div>
             </div>
             <div style="width: 100%; height: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden;">
                 <div style="width: ${percentage}%; height: 100%; background: var(--admin-gold); transition: width 0.5s ease;"></div>
@@ -387,6 +472,9 @@ async function refreshPlayers() {
 
     container.innerHTML = '';
 
+    // Guard against config not being loaded
+    const totalClues = config?.totalClues || 10;
+
     players.forEach(player => {
         const card = document.createElement('div');
         card.className = 'player-card';
@@ -403,7 +491,7 @@ async function refreshPlayers() {
             <div class="player-stats">
                 <div class="player-stat">
                     <div class="player-stat-label">Main Quest</div>
-                    <div class="player-stat-value">${mainProgress}/${config.totalClues}</div>
+                    <div class="player-stat-value">${mainProgress}/${totalClues}</div>
                 </div>
                 <div class="player-stat">
                     <div class="player-stat-label">Side Quests</div>

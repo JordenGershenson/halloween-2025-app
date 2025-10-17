@@ -25,7 +25,7 @@ async function loadConfig() {
 
     // Fallback config for testing
     config = {
-        title: "Pirate's Treasure Hunt",
+        title: "Pirate's Treasure Hunt Test",
         totalClues: 5,
         hintUnlockTimes: [0, 120, 300],
         clues: {
