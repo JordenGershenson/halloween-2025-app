@@ -12,7 +12,12 @@
       "Bash(docker rm:*)",
       "Bash(docker-compose up:*)",
       "Bash(docker-compose:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: Pirate Halloween Treasure Hunt App\n\n- Complete pirate-themed scavenger hunt web app\n- Node.js/Express backend with RESTful API\n- Progressive hint system with timed unlocks\n- Player tracking across devices\n- Admin panel for game master control\n- Side quest system with doubloon currency\n- Leaderboard with active/completed players\n- Docker deployment ready\n- Supports alphanumeric codes\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(gh:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
