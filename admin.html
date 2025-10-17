@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Pirate's Treasure Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <!-- Admin Login Overlay -->
+    <div id="admin-login-overlay" class="admin-login-overlay">
+        <div class="admin-login-modal">
+            <h2 class="modal-title">🔐 Game Master Access 🔐</h2>
+            <p class="modal-description">Enter the captain's password to access game controls:</p>
+            <input
+                type="password"
+                id="admin-password-input"
+                class="name-input"
+                placeholder="Password..."
+                autocomplete="off"
+            >
+            <button id="admin-login-btn" class="submit-name-btn">Access Admin Panel</button>
+            <div id="admin-login-error" class="error-message hidden"></div>
+        </div>
+    </div>
+
+    <div class="admin-container">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-header-content">
+                <h1 class="admin-title">⚓ Game Master Control Panel ⚓</h1>
+                <div class="admin-actions">
+                    <button id="refresh-btn" class="admin-btn secondary">🔄 Refresh</button>
+                    <button id="logout-btn" class="admin-btn danger">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <!-- Tab Navigation -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="dashboard">📊 Dashboard</button>
+                <button class="admin-tab" data-tab="quests">📜 Quest Manager</button>
+                <button class="admin-tab" data-tab="doubloons">💰 Doubloons</button>
+                <button class="admin-tab" data-tab="players">👥 Players</button>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboard-tab" class="admin-tab-content active">
+                <h2 class="section-heading">Game Status Overview</h2>
+
+                <div class="admin-grid">
+                    <!-- Stats Cards -->
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="total-players">0</div>
+                            <div class="stat-label">Total Players</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">🏴‍☠️</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="active-hunters">0</div>
+                            <div class="stat-label">Active Hunters</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="completed-hunters">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📜</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="active-quests">0</div>
+                            <div class="stat-label">Active Quests</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="admin-section">
+                    <h3 class="subsection-heading">Recent Activity</h3>
+                    <div id="recent-activity" class="activity-feed">
+                        <p class="empty-message">No recent activity</p>
+                    </div>
+                </div>
+
+                <!-- Player Progress -->
+                <div class="admin-section">
+                    <h3 class="subsection-heading">Main Quest Progress</h3>
+                    <div id="main-quest-progress" class="player-progress-list">
+                        <!-- Will be populated via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quest Manager Tab -->
+            <div id="quests-tab" class="admin-tab-content">
+                <h2 class="section-heading">Quest Manager</h2>
+
+                <!-- Create Quest Form -->
+                <div class="admin-section">
+                    <h3 class="subsection-heading">Create New Quest</h3>
+                    <div class="quest-form">
+                        <input type="text" id="quest-title" class="admin-input" placeholder="Quest Title" maxlength="50">
+                        <textarea id="quest-description" class="admin-textarea" placeholder="Quest Description" rows="3" maxlength="200"></textarea>
+                        <input type="number" id="quest-reward" class="admin-input" placeholder="Doubloon Reward" min="1" max="1000" value="10">
+                        <input type="text" id="quest-code" class="admin-input" placeholder="Completion Code (optional)" maxlength="10">
+                        <button id="create-quest-btn" class="admin-btn primary">Create Quest</button>
+                    </div>
+                </div>
+
+                <!-- Active Quests -->
+                <div class="admin-section">
+                    <h3 class="subsection-heading">Active Quests</h3>
+                    <div id="active-quests-list" class="quests-list">
+                        <p class="empty-message">No active quests</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doubloons Tab -->
+            <div id="doubloons-tab" class="admin-tab-content">
+                <h2 class="section-heading">Doubloon Management</h2>
+
+                <!-- Award Doubloons -->
+                <div class="admin-section">
+                    <h3 class="subsection-heading">Award Doubloons</h3>
+                    <div class="award-form">
+                        <select id="player-select" class="admin-select">
+                            <option value="">Select Player...</option>
+                        </select>
+                        <input type="number" id="doubloon-amount" class="admin-input" placeholder="Amount" min="1" max="1000" value="10">
+                        <input type="text" id="doubloon-reason" class="admin-input" placeholder="Reason (optional)" maxlength="50">
+                        <button id="award-doubloons-btn" class="admin-btn primary">Award Doubloons</button>
+                    </div>
+                </div>
+
+                <!-- Doubloon Leaderboard -->
+                <div class="admin-section">
+                    <h3 class="subsection-heading">💰 Doubloon Leaderboard</h3>
+                    <div id="doubloon-leaderboard" class="doubloon-leaderboard">
+                        <p class="empty-message">No players with doubloons yet</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Players Tab -->
+            <div id="players-tab" class="admin-tab-content">
+                <h2 class="section-heading">Player Management</h2>
+
+                <div class="admin-section">
+                    <div id="players-list" class="players-list">
+                        <p class="empty-message">No players yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

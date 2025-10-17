@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Pirate's Treasure Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="parchment-container">
+        <div class="content">
+            <h1 class="pirate-title">🏴‍☠️ Treasure Hunt Leaderboard 🏴‍☠️</h1>
+
+            <div class="leaderboard-intro">
+                <p>Track the progress of all brave pirates seeking Captain Blackwood's legendary treasure!</p>
+            </div>
+
+            <!-- Active Players Section -->
+            <div id="active-players-section" class="active-players-section hidden">
+                <h2 class="section-title">🏴‍☠️ Active Pirates 🏴‍☠️</h2>
+                <p class="section-subtitle">Currently on the hunt:</p>
+                <div id="active-players-list" class="active-players-list">
+                    <!-- Active players will be loaded via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Completed Hunt Leaderboard -->
+            <div id="completed-section" class="completed-section">
+                <h2 class="section-title">🏆 Hall of Fame 🏆</h2>
+                <p class="section-subtitle">Completed the hunt:</p>
+                <div id="leaderboard-container" class="leaderboard-container">
+                    <!-- Leaderboard entries will be loaded via JavaScript -->
+                </div>
+
+                <div id="empty-leaderboard" class="empty-leaderboard hidden">
+                    <p>⚓ No pirates have completed the hunt yet! ⚓</p>
+                    <p>Be the first to claim your place in history!</p>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button id="home-btn" class="nav-btn">Return to Start</button>
+                <button id="clear-leaderboard-btn" class="nav-btn secondary">Clear Leaderboard</button>
+            </div>
+
+            <div class="decoration">⚓ ☠️ ⚓</div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Quests - Pirate's Treasure Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="parchment-container">
+        <div class="content">
+            <h1 class="pirate-title">📜 Side Quests 📜</h1>
+
+            <div id="player-info" class="player-greeting">
+                <p>Ahoy, <span id="quests-player-name" class="player-name-highlight"></span>!</p>
+                <p style="font-size: 1.3em; margin-top: 10px;">💰 Yer Doubloons: <span id="player-doubloon-count" class="player-name-highlight">0</span></p>
+            </div>
+
+            <div class="intro-text">
+                <p>Complete these special quests to earn doubloons and claim yer prize!</p>
+            </div>
+
+            <!-- Available Quests -->
+            <div id="available-quests-section" class="unlocked-clues-section">
+                <h3 class="unlocked-clues-title">⚔️ Available Quests ⚔️</h3>
+                <div id="available-quests-list" class="unlocked-clues-list">
+                    <p class="empty-message">No quests available at the moment. Check back later!</p>
+                </div>
+            </div>
+
+            <!-- My Quests -->
+            <div id="my-quests-section" class="unlocked-clues-section hidden">
+                <h3 class="unlocked-clues-title">🗺️ My Active Quests 🗺️</h3>
+                <div id="my-quests-list" class="unlocked-clues-list">
+                    <!-- Player's claimed quests -->
+                </div>
+            </div>
+
+            <!-- Completed Quests -->
+            <div id="completed-quests-section" class="unlocked-clues-section hidden">
+                <h3 class="unlocked-clues-title">✅ Completed Quests ✅</h3>
+                <div id="completed-quests-list" class="unlocked-clues-list">
+                    <!-- Player's completed quests -->
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button id="home-btn" class="nav-btn">Return to Hunt</button>
+            </div>
+
+            <div class="decoration">⚓ ☠️ ⚓</div>
+        </div>
+    </div>
+
+    <!-- Quest Completion Modal -->
+    <div id="quest-completion-modal" class="player-name-overlay hidden">
+        <div class="player-name-modal">
+            <h2 class="modal-title" id="modal-quest-title">Complete Quest</h2>
+            <p class="modal-description" id="modal-quest-description">Enter the completion code:</p>
+            <input
+                type="text"
+                id="completion-code-input"
+                class="name-input"
+                placeholder="Enter code..."
+                maxlength="20"
+                autocomplete="off"
+            >
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                <button id="submit-completion-btn" class="submit-name-btn">Complete Quest</button>
+                <button id="cancel-completion-btn" class="admin-btn secondary" style="background: #8b0000; color: white;">Cancel</button>
+            </div>
+            <div id="completion-error" class="error-message hidden"></div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+    <script src="quests.js"></script>
+</body>
+</html>

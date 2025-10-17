@@ -1,0 +1,14 @@
+services:
+  pirate-hunt:
+    build: .
+    container_name: pirate-treasure-hunt
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount game data for persistence
+      - ./game-data.json:/app/game-data.json
+      # Mount config for easy updates
+      - ./config.json:/app/config.json
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production

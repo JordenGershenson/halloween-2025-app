@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clue Found!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="parchment-container">
+        <div class="content">
+            <div class="success-banner">
+                <h1 class="clue-title">🗝️ Clue Discovered! 🗝️</h1>
+            </div>
+
+            <div id="clue-content" class="clue-content">
+                <!-- Content will be loaded via JavaScript -->
+            </div>
+
+            <div id="hints-section" class="hints-section">
+                <h3 class="hints-title">🗺️ Hints for Next Clue</h3>
+                <div id="hints-container" class="hints-container">
+                    <!-- Hints will be loaded via JavaScript -->
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <p class="progress-label">Clues Found:</p>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <p id="progress-text" class="progress-text">0 of 0</p>
+            </div>
+
+            <div class="navigation-buttons">
+                <button id="next-clue-btn" class="nav-btn">Search for Next Clue</button>
+                <button id="home-btn" class="nav-btn secondary">Return to Start</button>
+            </div>
+
+            <div class="decoration">⚓ ☠️ ⚓</div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

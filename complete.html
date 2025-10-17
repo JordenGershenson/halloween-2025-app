@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Found!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="parchment-container">
+        <div class="content completion-page">
+            <div class="treasure-animation">
+                <h1 class="completion-title">⚜️ TREASURE FOUND! ⚜️</h1>
+                <div class="treasure-chest">💰 🏆 💎</div>
+            </div>
+
+            <div id="completion-player-greeting" class="player-greeting" style="margin-bottom: 20px;">
+                <p style="font-size: 1.3em;">Congratulations, <span id="completion-player-name" class="player-name-highlight"></span>!</p>
+            </div>
+
+            <div class="completion-message">
+                <p>Ye've successfully completed Captain Blackwood's legendary treasure hunt and uncovered all the hidden secrets.</p>
+                <p>The treasure be yours! May yer pockets be heavy and yer spirits light!</p>
+            </div>
+
+            <div class="completion-stats">
+                <h3>Your Journey:</h3>
+                <p id="completion-time">Time: <span class="stat-value">--:--</span></p>
+                <p id="total-clues">Clues Found: <span class="stat-value">0</span></p>
+            </div>
+
+            <div id="name-entry-section" class="name-entry-section hidden">
+                <h3 class="name-entry-title">⚜️ Enter the Hall of Fame! ⚜️</h3>
+                <p class="name-entry-description">Enter yer pirate name to be immortalized on the leaderboard:</p>
+                <input
+                    type="text"
+                    id="pirate-name-input"
+                    class="name-input"
+                    placeholder="Captain..."
+                    maxlength="30"
+                    autocomplete="off"
+                >
+                <br>
+                <button id="submit-name-btn" class="submit-name-btn">Claim Yer Glory!</button>
+            </div>
+
+            <div id="leaderboard-position" class="hidden" style="text-align: center; margin: 20px 0; padding: 20px; background: rgba(212, 175, 55, 0.2); border: 2px solid var(--pirate-gold); border-radius: 10px;">
+                <p style="font-size: 1.3em; font-weight: bold; color: var(--pirate-gold);"></p>
+            </div>
+
+            <div class="navigation-buttons">
+                <button id="view-leaderboard-btn" class="nav-btn">🏆 View Full Leaderboard</button>
+                <button id="home-btn" class="nav-btn secondary">Start New Hunt</button>
+            </div>
+
+            <div class="decoration">⚓ ☠️ ⚓</div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

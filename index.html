@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirate's Treasure Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Player Name Entry Overlay -->
+    <div id="player-name-overlay" class="player-name-overlay hidden">
+        <div class="player-name-modal">
+            <h2 class="modal-title">⚓ Welcome Aboard! ⚓</h2>
+            <p class="modal-description">Before ye set sail on this adventure, tell us yer pirate name:</p>
+            <input
+                type="text"
+                id="player-name-input"
+                class="name-input"
+                placeholder="Enter yer name..."
+                maxlength="30"
+                autocomplete="off"
+            >
+            <button id="start-hunt-btn" class="submit-name-btn">Begin the Hunt!</button>
+        </div>
+    </div>
+
+    <div class="parchment-container">
+        <div class="content">
+            <h1 class="pirate-title">🏴‍☠️ Pirate's Treasure Hunt 🏴‍☠️</h1>
+
+            <div id="player-greeting" class="player-greeting hidden">
+                <p>Welcome back, <span id="player-name-display" class="player-name-highlight"></span>!</p>
+            </div>
+
+            <div class="intro-text">
+                <p>Ahoy, matey! Ye've stumbled upon Captain Blackwood's legendary treasure hunt.</p>
+                <p>Find the hidden clues scattered throughout the ship and enter their secret codes to unveil the mystery...</p>
+            </div>
+
+            <div class="code-entry-section">
+                <label for="code-input" class="code-label">Enter Yer Code:</label>
+                <input
+                    type="text"
+                    id="code-input"
+                    class="code-input"
+                    maxlength="4"
+                    placeholder="XXXX"
+                    autocomplete="off"
+                >
+                <button id="submit-btn" class="submit-btn">Submit</button>
+            </div>
+
+            <div id="error-message" class="error-message hidden"></div>
+
+            <div class="progress-section">
+                <p class="progress-label">Clues Found:</p>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <p id="progress-text" class="progress-text">0 of 0</p>
+            </div>
+
+            <div id="unlocked-clues-section" class="unlocked-clues-section hidden">
+                <h3 class="unlocked-clues-title">📜 Discovered Clues 📜</h3>
+                <p class="unlocked-clues-subtitle">Click to revisit any clue ye've already found:</p>
+                <div id="unlocked-clues-list" class="unlocked-clues-list">
+                    <!-- Unlocked clues will be rendered here -->
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button id="view-quests-btn" class="nav-btn secondary">📜 Side Quests</button>
+                <button id="view-leaderboard-btn" class="nav-btn secondary">🏆 View Leaderboard</button>
+            </div>
+
+            <div class="decoration">⚓ ☠️ ⚓</div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
