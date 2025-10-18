@@ -1,6 +1,6 @@
 {
   "title": "The Curse of the Crimson Charter",
-  "totalClues": 10,
+  "totalClues": 9,
   "hintUnlockTimes": [
     0,
     300,
@@ -14,32 +14,29 @@
         "Dead men tell no tales... but what if they could still speak?",
         "An honest testimony needs no flesh, no blood, no beating heart...",
         "The skeleton in the main deck has something to say—check his person carefully!"
-      ],
-      "completionCode": "SKULLKEY",
-      "reward": 25,
-      "requiresApproval": false
+      ]
     },
     "BONE": {
       "title": "The Skeleton's Testament",
-      "story": "Bosun Cray's bones rattle with secrets: 'They tortured me for Rourke's location, stripped flesh from bone, yet I revealed nothing. Now I guard this truth: The Charter was signed by 247 souls, written in their blood. Below deck lurks Grimm's hound—neither living nor truly dead. It guards the next secret, but speaks only in whimpers. Listen for its repetition, for even beasts remember their masters' final moments.'",
+      "story": "Bosun Cray's bones rattle with secrets: 'They tortured me for Rourke's location, stripped flesh from bone, yet I revealed nothing. Now I guard this truth: The Charter was signed by 247 souls, written in their blood. Below deck lurks Grimm's messenger — neither living nor truly dead.'",
       "hints": [
-        "The cursed know their cursed kin—find what should be dead yet moves...",
+        "The cursed know their cursed kin — find what should be dead yet moves...",
         "Between the upper deck and the depths below, trapped behind bars of rust...",
-        "The caged creature on the stairway whimpers a single word repeatedly—listen carefully!"
+        "The caged creature on the stairway holds a scrap of the charter... "
       ]
     },
     "HELM": {
-      "title": "The Cursed Hound's Memory",
-      "story": "The undead hound whimpers 'helm... helm... helm...' endlessly. A note beneath its cage reads: 'Grimm's beast remembers where its master made his last stand as mortal captain. The wheel remembers all who've held it—eight spokes for eight directions, but only one points true. Where sunset meets the horizon, there you'll find what Grimm sought. The spoke that chases the dying light holds a hidden latch.'",
+      "title": "The Cursed Pet's Memory",
+      "story": "The undead creature whimpers 'helm... helm... helm...' endlessly. A note beneath its cage reads: 'Grimm's beast remembers where its master made his last stand as mortal captain. The wheel remembers all who've held it — eight spokes for eight directions, but only one points true. Where sunset meets the horizon, there you'll find what Grimm sought. The spoke that chases the dying light holds a hidden latch.'",
       "hints": [
         "Eight spokes, eight directions, but sailors know which one guides them to sunset...",
         "The wheel remembers... the western spoke knows where the sun dies each day...",
-        "Check the ship's wheel in the living room—the spoke pointing west (left if facing the helm) has a secret!"
+        "Check the ship's wheel in the living room — the spoke pointing west (left if facing the helm) has a secret!"
       ]
     },
     "WEST": {
       "title": "The Navigator's Secret",
-      "story": "Behind the western spoke, a hidden compass rose! Its center can be pressed, revealing an old shipping manifest: 'The Company documents everything—their weakness and strength. Find their ledger of souls, for in their careful accounting lies their damnation. But beware, the ledger speaks in pairs—red ink for the taken, black for the dead. When you find it, remember: the dead tell the truth, but only the living can act upon it.'",
+      "story": "Behind the western spoke, a hidden compass rose! Its center can be pressed, revealing an old shipping manifest: 'The Company documents everything — their weakness and strength. Find their ledger of souls, for in their careful accounting lies their damnation. But beware, the ledger speaks in pairs — red ink for the taken, black for the dead. When you find it, remember: the dead tell the truth, but only the living can act upon it.'",
       "hints": [
         "The Company's greatest weakness is their meticulous record-keeping...",
         "Where would one display important documents? Where would a ledger be kept for all to see their crimes?",
@@ -48,43 +45,34 @@
     },
     "SOUL": {
       "title": "The Ledger of Lost Souls",
-      "story": "Grimm's ledger reveals horrors in two columns: RED INK shows 247 pressed into service, 89 who died in the Company's wars, 31 executed as deserters. BLACK INK shows different numbers: 147, 215, 412. Madame Corbeau's ghost has written in the margins: 'Red ink counts souls, black ink counts coins. Three coins were cursed with these numbers—skull, anchor, and crown. Find them in false treasure, for they unlock Cook's secret. But first, brave the depths where the tentacled ones dwell.'",
+      "story": "Grimm's ledger reveals horrors in two columns: RED INK shows 247 lines pressed into service, 89 who died in the Company's wars, 31 executed as deserters. BLACK INK shows different numbers: 107, 205, 402, 308. Madame Corbeau's ghost has written in the margins: 'Red ink counts souls, black ink counts coins. Four coins were cursed with these numbers — skull, anchor, cross and crown.",
       "hints": [
-        "The descent into darkness requires more than courage—what do the red numbers share?",
+        "The descent into darkness requires more than courage — what do the red numbers share?",
         "The path below opens only for those who know the full weight of the Company's sins...",
-        "Add all the red ink numbers together: 247 + 89 + 31 = 367. Use this code for the depths!"
+        "Add all the red ink numbers together: 247 + 89 + 31 = 0367. Use this code for the depths!"
       ]
     },
-    "WISP": {
+    "0367": {
       "title": "Whispers from the Depths",
-      "story": "The basement writhes with tentacled horrors—Davy Jones' crew made manifest! Among the decay, ye spot three peculiar coins in the treasure hoard, exactly as the ledger foretold: A skull coin (147), an anchor coin (215), and a crown coin (412). But there's more—carved into the wall, a message: 'Cookie Morris was no simple cook. He served equations with his meals. The oven holds his puzzle box, but it opens only for those who understand the Pirates' Proof.'",
+      "story": "The basement writhes with tentacled horrors — Davy Jones' crew made manifest! Among the decay, ye spot four peculiar coins in the treasure hoard, exactly as the ledger foretold: A skull coin, an anchor coin, a crown coin, and a cross coin. But there's more—carved into the wall, a message: 'Cookie Morris was no simple cook. He served riddles with his meals. The oven holds his puzzle box, but it opens only for those who understand the Pirates' Proof.'",
       "hints": [
-        "Three cursed coins, three numbers—but what's the Pirates' Proof?",
-        "Pirates share treasure equally... but what if someone betrays the crew?",
-        "Check the kitchen/galley area—Cookie's puzzle awaits near the oven!"
-      ]
-    },
-    "COOK": {
-      "title": "Cookie's Cipher",
-      "story": "Near the galley's stove, a puzzle box with three rotating dials! Etched on its side: 'The Pirates' Proof: When treasure is divided among thieves, betrayal changes the arithmetic. Start with the skull's portion, add the anchor's weight, then subtract the crown's greed. What remains belongs to the faithful.' You realize this is the combination—but there's also a riddle: 'When ye solve this box, seek where thunder never follows lightning.'",
-      "hints": [
-        "The skull's portion (147) plus the anchor's weight (215) minus the crown's greed (412)...",
-        "147 + 215 - 412 = -50... but wait, codes can't be negative. What's the maritime solution?",
-        "Sailors use 'boxing the compass'—when you go negative, add 360. So -50 + 360 = 310!"
+        "Find them in false treasure, for they unlock Cook's secret. But first, brave the depths where the tentacled ones dwell.",
+        "| ☠️ | ⚓️ | 👑 | ☩ |",
+        "After the dust settled, Cookie Morris counted 7 Skulls, 5 Anchors, 8 Crowns, 2 Crosses"
       ]
     },
     "MAPS": {
       "title": "The Map Fragment",
-      "story": "The puzzle box clicks open! Inside, a piece of torn map and a brass sextant. The map shows constellations, but they're wrong—stars arranged to spell words: 'NORTH IS YOUR BEGINNING' (1st clue), 'EAST IS THE BEAST' (2nd clue), 'SOUTH IS THE SKELETON' (3rd clue), 'WEST IS THE WHEEL' (4th clue). Below this, scratched in desperate handwriting: 'The storm above holds the final truth, but only the multiplication of betrayals opens its eye. Deserters times fragments equals passage.'",
+      "story": "The puzzle box clicks open! Inside, a piece of torn map and a brass sextant. The map shows constellations, but they're wrong — stars arranged to spell words: STAR",
       "hints": [
-        "The storm that never breaks, where lightning flashes but rain never falls...",
-        "You need two numbers from earlier: deserters (31) and fragments (13)...",
-        "31 × 13 = 403. Look for this number near the LED storm clouds!"
+        "What cipher was being used to guide toward the storm's eye? Cook's experiences influenced many of his tricks",
+        "Consider Cook's code - perhaps this code may interact with the stars",
+        "S - ☠️ | T - ⚓️ ...."
       ]
     },
     "EYES": {
       "title": "The Storm's Eye",
-      "story": "Behind the storm clouds, a hidden panel! Inside, you find an ancient astrolabe with moving parts. Aligning it reveals a final message: 'The Quartermaster holds the final test—a lockbox sealed with the weight of all souls lost. Not just the pressed (247), not just the dead (89), not just the deserters (31), but all who've touched these cursed waters. Add the black ink coins to the red ink souls.' This sum opens the final lock.",
+      "story": "You know now where",
       "hints": [
         "Red ink totals: 247 + 89 + 31 = 367. Black ink totals: 147 + 215 + 412 = 774...",
         "The weight of all souls: 367 + 774 = ?",
