@@ -48,14 +48,14 @@ async function loadQuests(playerName) {
 
     // Categorize quests
     const available = [];
-    const myClaimed = [];
+    const myDiscovered = [];
     const myCompleted = [];
 
     activeQuests.forEach(quest => {
         if (quest.completedBy.includes(playerName)) {
             myCompleted.push(quest);
-        } else if (quest.claimedBy.includes(playerName)) {
-            myClaimed.push(quest);
+        } else if (quest.discoveredBy && quest.discoveredBy.includes(playerName)) {
+            myDiscovered.push(quest);
         } else {
             available.push(quest);
         }
@@ -63,7 +63,7 @@ async function loadQuests(playerName) {
 
     // Render each category
     renderAvailableQuests(available, playerName);
-    renderMyQuests(myClaimed, playerName);
+    renderDiscoveredQuests(myDiscovered, playerName);
     renderCompletedQuests(myCompleted);
 }
 
@@ -85,7 +85,7 @@ function renderAvailableQuests(quests, playerName) {
     });
 }
 
-function renderMyQuests(quests, playerName) {
+function renderDiscoveredQuests(quests, playerName) {
     const container = document.getElementById('my-quests-list');
     const section = document.getElementById('my-quests-section');
 
@@ -98,7 +98,7 @@ function renderMyQuests(quests, playerName) {
     container.innerHTML = '';
 
     quests.forEach(quest => {
-        const card = createQuestCard(quest, 'claimed', playerName);
+        const card = createQuestCard(quest, 'discovered', playerName);
         container.appendChild(card);
     });
 }
@@ -126,57 +126,91 @@ function createQuestCard(quest, status, playerName) {
     card.className = 'unlocked-clue-card';
     card.style.cursor = status === 'completed' ? 'default' : 'pointer';
 
-    let icon = '📜';
-    let buttonHtml = '';
-
-    if (status === 'available') {
-        icon = '⚔️';
-        buttonHtml = `<button class="nav-btn" style="margin-top: 10px; width: 100%;" onclick="claimQuest('${quest.id}', '${playerName}')">Claim Quest</button>`;
-    } else if (status === 'claimed') {
-        icon = '🗺️';
-        buttonHtml = `<button class="nav-btn primary" style="margin-top: 10px; width: 100%; background: var(--pirate-gold);" onclick="completeQuestPrompt('${quest.id}', '${playerName}')">Complete Quest</button>`;
-    } else {
-        icon = '✅';
+    // Add green border and checkmark for completed quests
+    if (status === 'completed') {
+        card.style.border = '3px solid #4CAF50';
+        card.style.boxShadow = '0 0 10px rgba(76, 175, 80, 0.3)';
     }
 
-    card.innerHTML = `
-        <div class="unlocked-clue-icon">${icon}</div>
-        <div class="unlocked-clue-title">${escapeHtml(quest.title)}</div>
-        <div style="font-size: 0.9em; color: var(--pirate-brown); margin: 10px 0; line-height: 1.5;">
-            ${escapeHtml(quest.description)}
-        </div>
+    // Quest type badge
+    const questTypeIcon = quest.questType === 'main' ? '⚓' : '⚔️';
+    const questTypeBadge = `<span style="background: ${quest.questType === 'main' ? 'rgba(139, 69, 19, 0.3)' : 'rgba(212, 175, 55, 0.2)'}; padding: 4px 8px; border-radius: 3px; font-size: 0.8em; margin-left: 8px;">${questTypeIcon} ${quest.questType === 'main' ? 'Main' : 'Side'}</span>`;
+
+    let icon = '📜';
+    let buttonHtml = '';
+    let statusHtml = '';
+
+    if (status === 'available') {
+        icon = quest.questType === 'main' ? '⚓' : '⚔️';
+        buttonHtml = `<button class="nav-btn" style="margin-top: 10px; width: 100%;" onclick="discoverQuest('${quest.id}', '${playerName}')">Discover Quest</button>`;
+    } else if (status === 'discovered') {
+        icon = '🔍';
+        if (quest.requiresApproval) {
+            statusHtml = `<div style="background: rgba(255, 215, 0, 0.2); padding: 10px; border-radius: 5px; margin: 10px 0; text-align: center; color: var(--pirate-gold);">
+                ⏳ Awaiting Admin Approval
+            </div>`;
+        } else {
+            statusHtml = `<div style="background: rgba(76, 175, 80, 0.2); padding: 10px; border-radius: 5px; margin: 10px 0; text-align: center; color: #4CAF50;">
+                ✅ Auto-Completed! Doubloons awarded!
+            </div>`;
+        }
+    } else if (status === 'completed') {
+        icon = '✅';
+        statusHtml = `<div style="background: rgba(76, 175, 80, 0.3); padding: 10px; border-radius: 5px; margin: 10px 0; text-align: center; color: #4CAF50; font-weight: bold;">
+            ✅ COMPLETED! Doubloons Received!
+        </div>`;
+    }
+
+    const rewardHtml = quest.reward > 0 ? `
         <div class="unlocked-clue-code" style="background: rgba(212, 175, 55, 0.2); padding: 8px; border-radius: 5px; font-weight: bold;">
             Reward: 💰 ${quest.reward} Doubloons
         </div>
+    ` : '';
+
+    card.innerHTML = `
+        <div class="unlocked-clue-icon">${icon}</div>
+        <div class="unlocked-clue-title">${escapeHtml(quest.title)} ${questTypeBadge}</div>
+        <div style="font-size: 0.9em; color: var(--pirate-brown); margin: 10px 0; line-height: 1.5;">
+            ${escapeHtml(quest.description)}
+        </div>
+        ${rewardHtml}
+        ${statusHtml}
         ${buttonHtml}
     `;
 
     return card;
 }
 
-async function claimQuest(questId, playerName) {
-    await updateQuest(questId, 'claim', playerName);
-    loadQuests(playerName);
-}
-
-async function completeQuestPrompt(questId, playerName) {
+async function discoverQuest(questId, playerName) {
     const quests = await getQuests();
     const quest = quests.find(q => q.id === questId);
 
     if (!quest) return;
 
-    // If quest has a code, show modal
+    // If quest has a code, show modal to enter it
     if (quest.code) {
-        showCompletionModal(quest, playerName);
+        showDiscoveryModal(quest, playerName);
     } else {
-        // No code required, complete immediately
-        if (confirm(`Complete "${quest.title}" and earn ${quest.reward} doubloons?`)) {
-            completeQuest(quest, playerName);
+        // No code required, discover immediately
+        if (confirm(`Mark "${quest.title}" as discovered?`)) {
+            await updateQuest(questId, 'discover', playerName);
+
+            // Show appropriate message
+            if (quest.requiresApproval) {
+                alert(`Quest discovered! Waiting for admin approval to receive ${quest.reward} doubloons.`);
+            } else if (quest.reward > 0) {
+                alert(`Quest discovered and completed! You earned ${quest.reward} doubloons!`);
+            } else {
+                alert(`Quest discovered!`);
+            }
+
+            updateDoubloonDisplay(playerName);
+            loadQuests(playerName);
         }
     }
 }
 
-function showCompletionModal(quest, playerName) {
+function showDiscoveryModal(quest, playerName) {
     const modal = document.getElementById('quest-completion-modal');
     const titleEl = document.getElementById('modal-quest-title');
     const descEl = document.getElementById('modal-quest-description');
@@ -186,18 +220,32 @@ function showCompletionModal(quest, playerName) {
     const errorDiv = document.getElementById('completion-error');
 
     titleEl.textContent = quest.title;
-    descEl.textContent = 'Enter the completion code to claim yer reward:';
+    descEl.textContent = 'Enter the quest code ye found:';
     input.value = '';
     errorDiv.classList.add('hidden');
 
     modal.classList.remove('hidden');
     input.focus();
 
-    const handleSubmit = () => {
-        const code = input.value.trim();
-        if (code === quest.code) {
-            completeQuest(quest, playerName);
+    const handleSubmit = async () => {
+        const code = input.value.trim().toUpperCase();
+        const questCode = quest.code.toUpperCase();
+        if (code === questCode) {
+            // Discover the quest
+            await updateQuest(quest.id, 'discover', playerName);
             modal.classList.add('hidden');
+
+            // Show appropriate message
+            if (quest.requiresApproval) {
+                alert(`Quest discovered! Waiting for admin approval to receive ${quest.reward} doubloons.`);
+            } else if (quest.reward > 0) {
+                alert(`Quest discovered and completed! You earned ${quest.reward} doubloons!`);
+            } else {
+                alert(`Quest discovered!`);
+            }
+
+            updateDoubloonDisplay(playerName);
+            loadQuests(playerName);
         } else {
             errorDiv.textContent = 'Wrong code, ye scurvy dog!';
             errorDiv.classList.remove('hidden');
@@ -215,18 +263,5 @@ function showCompletionModal(quest, playerName) {
     };
 }
 
-async function completeQuest(quest, playerName) {
-    // Mark as completed on server
-    await updateQuest(quest.id, 'complete', playerName);
-
-    // Award doubloons
-    await awardDoubloons(playerName, quest.reward, `Completed: ${quest.title}`);
-
-    alert(`Quest completed! Ye earned ${quest.reward} doubloons!`);
-    updateDoubloonDisplay(playerName);
-    loadQuests(playerName);
-}
-
 // Make functions global for onclick handlers
-window.claimQuest = claimQuest;
-window.completeQuestPrompt = completeQuestPrompt;
+window.discoverQuest = discoverQuest;

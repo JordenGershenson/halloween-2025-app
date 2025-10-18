@@ -80,13 +80,14 @@ app.get('/api/players/active', (req, res) => {
 
 // Register or update player
 app.post('/api/players', (req, res) => {
-    const { name, foundCodes, startTime, completionTime, completed } = req.body;
+    const { name, foundCodes, completedCodes, startTime, completionTime, completed } = req.body;
 
     let player = gameState.players.find(p => p.name === name);
 
     if (player) {
         // Update existing player
         player.foundCodes = foundCodes || player.foundCodes;
+        player.completedCodes = completedCodes || player.completedCodes || [];
         player.startTime = startTime || player.startTime;
         player.completionTime = completionTime || player.completionTime;
         player.completed = completed !== undefined ? completed : player.completed;
@@ -96,6 +97,7 @@ app.post('/api/players', (req, res) => {
         player = {
             name,
             foundCodes: foundCodes || [],
+            completedCodes: completedCodes || [],
             startTime: startTime || new Date().toISOString(),
             completionTime: completionTime || null,
             completed: completed || false,
@@ -174,17 +176,19 @@ app.get('/api/quests', (req, res) => {
 
 // Create quest
 app.post('/api/quests', (req, res) => {
-    const { title, description, reward, code } = req.body;
+    const { title, description, reward, code, questType, requiresApproval } = req.body;
 
     const quest = {
         id: Date.now().toString(),
         title,
         description,
-        reward,
+        reward: reward || 0,
         code: code || null,
+        questType: questType || 'side', // 'main' or 'side'
+        requiresApproval: requiresApproval || false,
         active: true,
         createdAt: new Date().toISOString(),
-        claimedBy: [],
+        discoveredBy: [],
         completedBy: []
     };
 
@@ -193,7 +197,7 @@ app.post('/api/quests', (req, res) => {
     res.json({ success: true, quest });
 });
 
-// Update quest (claim, complete, deactivate)
+// Update quest (discover, approve, deactivate)
 app.put('/api/quests/:id', (req, res) => {
     const { action, playerName } = req.body;
     const quest = gameState.quests.find(q => q.id === req.params.id);
@@ -202,13 +206,46 @@ app.put('/api/quests/:id', (req, res) => {
         return res.status(404).json({ error: 'Quest not found' });
     }
 
-    if (action === 'claim' && playerName) {
-        if (!quest.claimedBy.includes(playerName)) {
-            quest.claimedBy.push(playerName);
+    if (action === 'discover' && playerName) {
+        // Add to discovered list
+        if (!quest.discoveredBy.includes(playerName)) {
+            quest.discoveredBy.push(playerName);
         }
-    } else if (action === 'complete' && playerName) {
-        if (!quest.completedBy.includes(playerName)) {
+
+        // Auto-complete if no approval required
+        if (!quest.requiresApproval && !quest.completedBy.includes(playerName)) {
             quest.completedBy.push(playerName);
+
+            // Auto-award doubloons
+            if (quest.reward > 0) {
+                if (!gameState.doubloons[playerName]) {
+                    gameState.doubloons[playerName] = { total: 0, transactions: [] };
+                }
+                gameState.doubloons[playerName].total += quest.reward;
+                gameState.doubloons[playerName].transactions.push({
+                    amount: quest.reward,
+                    reason: `Completed: ${quest.title}`,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+    } else if (action === 'approve' && playerName) {
+        // Admin approves a discovered quest
+        if (quest.discoveredBy.includes(playerName) && !quest.completedBy.includes(playerName)) {
+            quest.completedBy.push(playerName);
+
+            // Award doubloons on approval
+            if (quest.reward > 0) {
+                if (!gameState.doubloons[playerName]) {
+                    gameState.doubloons[playerName] = { total: 0, transactions: [] };
+                }
+                gameState.doubloons[playerName].total += quest.reward;
+                gameState.doubloons[playerName].transactions.push({
+                    amount: quest.reward,
+                    reason: `Completed: ${quest.title}`,
+                    timestamp: new Date().toISOString()
+                });
+            }
         }
     } else if (action === 'deactivate') {
         quest.active = false;
@@ -251,6 +288,31 @@ app.post('/api/doubloons', (req, res) => {
 });
 
 // ===== ADMIN =====
+
+// Approve main quest completion
+app.post('/api/admin/approve-main-quest', (req, res) => {
+    const { playerName, clueCode, reward, title } = req.body;
+
+    if (!playerName || !clueCode) {
+        return res.status(400).json({ error: 'Missing playerName or clueCode' });
+    }
+
+    // Award doubloons
+    if (reward > 0) {
+        if (!gameState.doubloons[playerName]) {
+            gameState.doubloons[playerName] = { total: 0, transactions: [] };
+        }
+        gameState.doubloons[playerName].total += reward;
+        gameState.doubloons[playerName].transactions.push({
+            amount: reward,
+            reason: `Main quest approved: ${title || clueCode}`,
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    saveData();
+    res.json({ success: true, message: 'Main quest completion approved' });
+});
 
 // Clear all data (admin only)
 app.post('/api/admin/reset', (req, res) => {

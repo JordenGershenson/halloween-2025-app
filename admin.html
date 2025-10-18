@@ -113,9 +113,27 @@
                     <div class="quest-form">
                         <input type="text" id="quest-title" class="admin-input" placeholder="Quest Title" maxlength="50">
                         <textarea id="quest-description" class="admin-textarea" placeholder="Quest Description" rows="3" maxlength="200"></textarea>
-                        <input type="number" id="quest-reward" class="admin-input" placeholder="Doubloon Reward" min="1" max="1000" value="10">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <select id="quest-type" class="admin-select">
+                                <option value="side">⚔️ Side Quest</option>
+                                <option value="main">⚓ Main Quest</option>
+                            </select>
+                            <input type="number" id="quest-reward" class="admin-input" placeholder="Doubloon Reward" min="0" max="1000" value="10">
+                        </div>
                         <input type="text" id="quest-code" class="admin-input" placeholder="Completion Code (optional)" maxlength="10">
+                        <label style="display: flex; align-items: center; gap: 10px; color: var(--pirate-cream); margin: 10px 0;">
+                            <input type="checkbox" id="quest-requires-approval" style="width: auto;">
+                            <span>Requires Admin Approval (quest master turn-in)</span>
+                        </label>
                         <button id="create-quest-btn" class="admin-btn primary">Create Quest</button>
+                    </div>
+                </div>
+
+                <!-- Pending Approvals -->
+                <div class="admin-section">
+                    <h3 class="subsection-heading">⏳ Pending Approvals</h3>
+                    <div id="pending-approvals-list" class="quests-list">
+                        <p class="empty-message">No quests awaiting approval</p>
                     </div>
                 </div>
 

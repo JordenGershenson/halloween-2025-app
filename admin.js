@@ -291,15 +291,17 @@ function setupQuestForm() {
 async function handleCreateQuest() {
     const title = document.getElementById('quest-title').value.trim();
     const description = document.getElementById('quest-description').value.trim();
-    const reward = parseInt(document.getElementById('quest-reward').value) || 10;
+    const reward = parseInt(document.getElementById('quest-reward').value) || 0;
     const code = document.getElementById('quest-code').value.trim();
+    const questType = document.getElementById('quest-type').value;
+    const requiresApproval = document.getElementById('quest-requires-approval').checked;
 
     if (!title || !description) {
         alert('Please fill in title and description!');
         return;
     }
 
-    const result = await createQuest({ title, description, reward, code });
+    const result = await createQuest({ title, description, reward, code, questType, requiresApproval });
 
     if (result.success) {
         // Clear form
@@ -307,6 +309,8 @@ async function handleCreateQuest() {
         document.getElementById('quest-description').value = '';
         document.getElementById('quest-reward').value = '10';
         document.getElementById('quest-code').value = '';
+        document.getElementById('quest-type').value = 'side';
+        document.getElementById('quest-requires-approval').checked = false;
 
         refreshQuests();
         alert('Quest created successfully!');
@@ -316,6 +320,110 @@ async function handleCreateQuest() {
 }
 
 async function refreshQuests() {
+    await refreshPendingApprovals();
+    await refreshActiveQuests();
+}
+
+async function refreshPendingApprovals() {
+    const container = document.getElementById('pending-approvals-list');
+    if (!container) return;
+
+    const quests = await getQuests();
+    const players = await getAllPlayers();
+
+    // Find side quests that are discovered but not completed (pending approval)
+    const pendingSideQuests = [];
+
+    quests.forEach(quest => {
+        if (!quest.active) return;
+
+        // For each player who discovered but not completed
+        quest.discoveredBy.forEach(playerName => {
+            if (!quest.completedBy.includes(playerName)) {
+                pendingSideQuests.push({
+                    type: 'side',
+                    quest,
+                    playerName
+                });
+            }
+        });
+    });
+
+    // Find main quest completions that require approval
+    const pendingMainQuests = [];
+
+    players.forEach(player => {
+        if (!player.completedCodes) return;
+
+        player.completedCodes.forEach(clueCode => {
+            const clue = config.clues[clueCode];
+            if (clue && clue.completionCode && clue.requiresApproval) {
+                pendingMainQuests.push({
+                    type: 'main',
+                    clueCode,
+                    clue,
+                    playerName: player.name
+                });
+            }
+        });
+    });
+
+    const allPending = [...pendingSideQuests, ...pendingMainQuests];
+
+    if (allPending.length === 0) {
+        container.innerHTML = '<p class="empty-message">No quests awaiting approval</p>';
+        return;
+    }
+
+    container.innerHTML = '';
+
+    allPending.forEach((pending) => {
+        const card = document.createElement('div');
+        card.className = 'quest-card';
+
+        if (pending.type === 'side') {
+            const quest = pending.quest;
+            const questTypeIcon = quest.questType === 'main' ? '⚓' : '⚔️';
+
+            card.innerHTML = `
+                <div class="quest-header">
+                    <div class="quest-title">${questTypeIcon} ${escapeHtml(quest.title)}</div>
+                    <div class="quest-reward">💰 ${quest.reward}</div>
+                </div>
+                <div class="quest-description">${escapeHtml(quest.description)}</div>
+                <div style="margin: 10px 0; padding: 10px; background: rgba(255,215,0,0.1); border-radius: 5px;">
+                    <strong>Player:</strong> ${escapeHtml(pending.playerName)}<br>
+                    <strong>Type:</strong> Side Quest
+                </div>
+                <div class="quest-actions">
+                    <button class="admin-btn primary" onclick="approveQuest('${quest.id}', '${pending.playerName}')">✅ Approve & Award ${quest.reward} Doubloons</button>
+                </div>
+            `;
+        } else {
+            // Main quest
+            const clue = pending.clue;
+
+            card.innerHTML = `
+                <div class="quest-header">
+                    <div class="quest-title">⚓ ${escapeHtml(clue.title)}</div>
+                    <div class="quest-reward">💰 ${clue.reward || 0}</div>
+                </div>
+                <div style="margin: 10px 0; padding: 10px; background: rgba(255,215,0,0.1); border-radius: 5px;">
+                    <strong>Player:</strong> ${escapeHtml(pending.playerName)}<br>
+                    <strong>Type:</strong> Main Quest<br>
+                    <strong>Clue Code:</strong> ${escapeHtml(pending.clueCode)}
+                </div>
+                <div class="quest-actions">
+                    <button class="admin-btn primary" onclick="approveMainQuest('${pending.playerName}', '${pending.clueCode}', ${clue.reward || 0}, '${escapeHtml(clue.title)}')">✅ Approve & Award ${clue.reward || 0} Doubloons</button>
+                </div>
+            `;
+        }
+
+        container.appendChild(card);
+    });
+}
+
+async function refreshActiveQuests() {
     const container = document.getElementById('active-quests-list');
     if (!container) return;
 
@@ -332,15 +440,20 @@ async function refreshQuests() {
         const card = document.createElement('div');
         card.className = 'quest-card';
 
+        const questTypeIcon = quest.questType === 'main' ? '⚓' : '⚔️';
+        const questTypeLabel = quest.questType === 'main' ? 'Main' : 'Side';
+
         card.innerHTML = `
             <div class="quest-header">
-                <div class="quest-title">${escapeHtml(quest.title)}</div>
+                <div class="quest-title">${questTypeIcon} ${escapeHtml(quest.title)}</div>
                 <div class="quest-reward">💰 ${quest.reward}</div>
             </div>
             <div class="quest-description">${escapeHtml(quest.description)}</div>
-            ${quest.code ? `<div class="quest-code">Code: ${quest.code}</div>` : ''}
+            ${quest.code ? `<div class="quest-code">Code: ${quest.code}</div>` : '<div class="quest-code">No code required</div>'}
+            ${quest.requiresApproval ? '<div style="color: var(--admin-gold); margin: 5px 0;">⏳ Requires Approval</div>' : ''}
             <div class="quest-stats">
-                <span>📝 Claimed: ${quest.claimedBy.length}</span>
+                <span>${questTypeLabel} Quest</span>
+                <span>🔍 Discovered: ${quest.discoveredBy.length}</span>
                 <span>✅ Completed: ${quest.completedBy.length}</span>
             </div>
             <div class="quest-actions">
@@ -358,6 +471,44 @@ async function deactivateQuest(questId) {
     const result = await updateQuest(questId, 'deactivate');
     if (result.success) {
         refreshQuests();
+    }
+}
+
+async function approveQuest(questId, playerName) {
+    if (!confirm(`Approve quest completion for ${playerName}?`)) return;
+
+    const result = await updateQuest(questId, 'approve', playerName);
+    if (result.success) {
+        alert(`Quest approved! ${playerName} has received their reward!`);
+        refreshQuests();
+        refreshDoubloons();
+    } else {
+        alert('Error approving quest');
+    }
+}
+
+async function approveMainQuest(playerName, clueCode, reward, title) {
+    if (!confirm(`Approve main quest completion for ${playerName}?\n\nQuest: ${title}\nReward: ${reward} doubloons`)) return;
+
+    try {
+        const response = await fetch(`${window.location.origin}/api/admin/approve-main-quest`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ playerName, clueCode, reward, title })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert(`Main quest approved! ${playerName} has received ${reward} doubloons!`);
+            refreshQuests();
+            refreshDoubloons();
+        } else {
+            alert('Error approving main quest');
+        }
+    } catch (error) {
+        console.error('Error approving main quest:', error);
+        alert('Error approving main quest');
     }
 }
 
@@ -510,3 +661,5 @@ async function refreshPlayers() {
 
 // Make functions global for onclick handlers
 window.deactivateQuest = deactivateQuest;
+window.approveQuest = approveQuest;
+window.approveMainQuest = approveMainQuest;

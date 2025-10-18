@@ -226,13 +226,34 @@ function renderUnlockedClues() {
         const card = document.createElement('div');
         card.className = 'unlocked-clue-card';
 
+        // Check if this clue has been completed
+        const isCompleted = progress.completedCodes && progress.completedCodes.includes(code);
+
+        // Add green border and glow for completed clues
+        if (isCompleted) {
+            card.style.border = '3px solid #4CAF50';
+            card.style.boxShadow = '0 0 10px rgba(76, 175, 80, 0.3)';
+        }
+
         // Use icon based on index, or default anchor
-        const icon = clueIcons[index] || '🗝️';
+        let icon = clueIcons[index] || '🗝️';
+
+        // Show checkmark if completed
+        if (isCompleted) {
+            icon = '✅';
+        }
+
+        // Build completion badge HTML
+        const completionBadge = isCompleted ?
+            `<div style="background: rgba(76, 175, 80, 0.2); padding: 5px 10px; border-radius: 5px; margin-top: 5px; color: #4CAF50; font-weight: bold; font-size: 0.85em;">
+                ✅ Completed
+            </div>` : '';
 
         card.innerHTML = `
             <div class="unlocked-clue-icon">${icon}</div>
             <div class="unlocked-clue-title">${clue.title}</div>
             <div class="unlocked-clue-code">Code: ${code}</div>
+            ${completionBadge}
         `;
 
         // Handle click to navigate to clue
@@ -321,6 +342,7 @@ function getProgress() {
     }
     return {
         foundCodes: [],
+        completedCodes: [],
         lastFoundCode: null,
         lastFoundTime: null,
         startTime: null,
@@ -390,6 +412,11 @@ function initializeCluePage() {
 
     // Start updating hint timers
     hintUpdateInterval = setInterval(() => updateHintTimers(currentCode, clue), 1000);
+
+    // Show completion button if clue has completion code
+    if (clue.completionCode) {
+        showMainQuestCompletionButton(currentCode, clue);
+    }
 
     // Setup navigation buttons
     const nextClueBtn = document.getElementById('next-clue-btn');
@@ -516,6 +543,169 @@ function updateHintTimers(code, clue) {
             }
         }
     });
+}
+
+// ===== MAIN QUEST COMPLETION =====
+
+function showMainQuestCompletionButton(code, clue) {
+    const progress = getProgress();
+    const isCompleted = progress.completedCodes && progress.completedCodes.includes(code);
+
+    // Create completion section in the hints container
+    const hintsContainer = document.getElementById('hints-container');
+    if (!hintsContainer) return;
+
+    const completionSection = document.createElement('div');
+    completionSection.style.cssText = 'margin-top: 20px; padding: 15px; background: rgba(139, 69, 19, 0.2); border-radius: 10px; border: 2px solid var(--pirate-gold);';
+
+    if (isCompleted) {
+        // Already completed
+        completionSection.innerHTML = `
+            <div style="text-align: center;">
+                <h3 style="color: var(--pirate-gold); margin-bottom: 10px;">✅ Quest Completed!</h3>
+                ${clue.requiresApproval ?
+                    '<p style="color: var(--pirate-cream);">⏳ Awaiting admin approval for your reward!</p>' :
+                    `<p style="color: var(--pirate-cream);">💰 You earned ${clue.reward || 0} doubloons!</p>`
+                }
+            </div>
+        `;
+    } else {
+        // Not completed yet
+        completionSection.innerHTML = `
+            <div style="text-align: center;">
+                <h3 style="color: var(--pirate-gold); margin-bottom: 10px;">🏴‍☠️ Complete This Quest 🏴‍☠️</h3>
+                <p style="color: var(--pirate-cream); margin-bottom: 15px;">
+                    Found the completion code? Enter it to complete this quest!
+                </p>
+                ${clue.reward > 0 ? `<p style="color: var(--pirate-gold); font-weight: bold; margin-bottom: 15px;">Reward: 💰 ${clue.reward} Doubloons</p>` : ''}
+                <button id="complete-main-quest-btn" class="nav-btn primary" style="background: var(--pirate-gold); color: var(--pirate-brown); width: 100%; max-width: 300px;">
+                    Complete Quest
+                </button>
+            </div>
+        `;
+
+        // Add click handler
+        setTimeout(() => {
+            const completeBtn = document.getElementById('complete-main-quest-btn');
+            if (completeBtn) {
+                completeBtn.addEventListener('click', () => {
+                    showMainQuestCompletionModal(code, clue);
+                });
+            }
+        }, 100);
+    }
+
+    hintsContainer.appendChild(completionSection);
+}
+
+function showMainQuestCompletionModal(code, clue) {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('main-quest-completion-modal');
+
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'main-quest-completion-modal';
+        modal.className = 'player-name-overlay';
+        modal.innerHTML = `
+            <div class="player-name-modal">
+                <h2 class="modal-title">Complete Quest</h2>
+                <p class="modal-description">Enter the completion code ye found:</p>
+                <input
+                    type="text"
+                    id="main-quest-completion-input"
+                    class="name-input"
+                    placeholder="Enter code..."
+                    maxlength="20"
+                    autocomplete="off"
+                >
+                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                    <button id="submit-main-quest-completion-btn" class="submit-name-btn">Complete</button>
+                    <button id="cancel-main-quest-completion-btn" class="admin-btn secondary" style="background: #8b0000; color: white;">Cancel</button>
+                </div>
+                <div id="main-quest-completion-error" class="error-message hidden"></div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    const input = document.getElementById('main-quest-completion-input');
+    const submitBtn = document.getElementById('submit-main-quest-completion-btn');
+    const cancelBtn = document.getElementById('cancel-main-quest-completion-btn');
+    const errorDiv = document.getElementById('main-quest-completion-error');
+
+    input.value = '';
+    errorDiv.classList.add('hidden');
+    modal.classList.remove('hidden');
+    input.focus();
+
+    const handleSubmit = async () => {
+        const enteredCode = input.value.trim().toUpperCase();
+        const correctCode = clue.completionCode.toUpperCase();
+
+        if (enteredCode === correctCode) {
+            // Correct code!
+            await completeMainQuestClue(code, clue);
+            modal.classList.add('hidden');
+        } else {
+            // Wrong code
+            errorDiv.textContent = 'Wrong code, ye scurvy dog!';
+            errorDiv.classList.remove('hidden');
+            input.value = '';
+            setTimeout(() => errorDiv.classList.add('hidden'), 3000);
+        }
+    };
+
+    submitBtn.onclick = handleSubmit;
+    input.onkeypress = (e) => {
+        if (e.key === 'Enter') handleSubmit();
+    };
+    cancelBtn.onclick = () => {
+        modal.classList.add('hidden');
+    };
+}
+
+async function completeMainQuestClue(code, clue) {
+    const progress = getProgress();
+
+    // Add to completed codes
+    if (!progress.completedCodes) {
+        progress.completedCodes = [];
+    }
+    if (!progress.completedCodes.includes(code)) {
+        progress.completedCodes.push(code);
+    }
+
+    // Save to localStorage
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+
+    // Sync to server if player has name
+    if (progress.playerName) {
+        await registerOrUpdatePlayer({
+            name: progress.playerName,
+            foundCodes: progress.foundCodes,
+            completedCodes: progress.completedCodes,
+            startTime: progress.startTime,
+            completionTime: progress.completionTime,
+            completed: progress.completed
+        });
+
+        // Award doubloons if not requiring approval
+        if (!clue.requiresApproval && clue.reward > 0) {
+            await awardDoubloons(progress.playerName, clue.reward, `Completed main quest: ${clue.title}`);
+        }
+    }
+
+    // Show success message
+    if (clue.requiresApproval) {
+        alert(`Quest completed! Waiting for admin approval to receive ${clue.reward} doubloons.`);
+    } else if (clue.reward > 0) {
+        alert(`Quest completed! You earned ${clue.reward} doubloons!`);
+    } else {
+        alert(`Quest completed!`);
+    }
+
+    // Reload the page to update UI
+    window.location.reload();
 }
 
 // Completion Page Logic

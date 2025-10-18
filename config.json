@@ -14,7 +14,10 @@
         "Dead men tell no tales... but what if they could still speak?",
         "An honest testimony needs no flesh, no blood, no beating heart...",
         "The skeleton in the main deck has something to say—check his person carefully!"
-      ]
+      ],
+      "completionCode": "SKULLKEY",
+      "reward": 25,
+      "requiresApproval": false
     },
     "BONE": {
       "title": "The Skeleton's Testament",
@@ -52,7 +55,7 @@
         "Add all the red ink numbers together: 247 + 89 + 31 = 367. Use this code for the depths!"
       ]
     },
-    "0367": {
+    "WISP": {
       "title": "Whispers from the Depths",
       "story": "The basement writhes with tentacled horrors—Davy Jones' crew made manifest! Among the decay, ye spot three peculiar coins in the treasure hoard, exactly as the ledger foretold: A skull coin (147), an anchor coin (215), and a crown coin (412). But there's more—carved into the wall, a message: 'Cookie Morris was no simple cook. He served equations with his meals. The oven holds his puzzle box, but it opens only for those who understand the Pirates' Proof.'",
       "hints": [
@@ -70,7 +73,7 @@
         "Sailors use 'boxing the compass'—when you go negative, add 360. So -50 + 360 = 310!"
       ]
     },
-    "0310": {
+    "MAPS": {
       "title": "The Map Fragment",
       "story": "The puzzle box clicks open! Inside, a piece of torn map and a brass sextant. The map shows constellations, but they're wrong—stars arranged to spell words: 'NORTH IS YOUR BEGINNING' (1st clue), 'EAST IS THE BEAST' (2nd clue), 'SOUTH IS THE SKELETON' (3rd clue), 'WEST IS THE WHEEL' (4th clue). Below this, scratched in desperate handwriting: 'The storm above holds the final truth, but only the multiplication of betrayals opens its eye. Deserters times fragments equals passage.'",
       "hints": [
@@ -79,7 +82,7 @@
         "31 × 13 = 403. Look for this number near the LED storm clouds!"
       ]
     },
-    "0403": {
+    "EYES": {
       "title": "The Storm's Eye",
       "story": "Behind the storm clouds, a hidden panel! Inside, you find an ancient astrolabe with moving parts. Aligning it reveals a final message: 'The Quartermaster holds the final test—a lockbox sealed with the weight of all souls lost. Not just the pressed (247), not just the dead (89), not just the deserters (31), but all who've touched these cursed waters. Add the black ink coins to the red ink souls.' This sum opens the final lock.",
       "hints": [
@@ -88,14 +91,17 @@
         "The final lockbox code is 1141, but it's been divided by 3 for a 3-digit lock: 1141 ÷ 3 = 380 (round down)"
       ]
     },
-    "0380": {
+    "LOCK": {
       "title": "The Final Choice - The Crimson Charter Revealed",
       "story": "TRIUMPHANT! The lockbox springs open, revealing the thirteenth fragment—but it's blank until touched. When you grasp it, blood-red words appear: 'The Charter can be reforged or forever scattered. Sign your name in the Ledger of Lost Souls to claim dominion over every ship, every sailor, every wave. Or cast this fragment into the ceremonial waters (the Quartermaster has them) to preserve the chaos of freedom. Choose wisely—the sea remembers all.' Inside the box also lies your earthly reward for this incredible journey!",
       "hints": [
         "This is your moment of truth—return to the Quartermaster with your decision!",
         "Will you choose order through control, or freedom through chaos?",
         "Claim your reward and make your choice—the crew awaits your decision!"
-      ]
+      ],
+      "completionCode": "CHARTER",
+      "reward": 100,
+      "requiresApproval": true
     }
   },
   "errorMessages": [
