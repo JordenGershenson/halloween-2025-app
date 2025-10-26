@@ -115,11 +115,27 @@ function initializeHomePage() {
         e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
     });
 
-    // View quests button
-    const viewQuestsBtn = document.getElementById('view-quests-btn');
-    if (viewQuestsBtn) {
-        viewQuestsBtn.addEventListener('click', () => {
-            window.location.href = 'quests.html';
+    // View quests button - commented out but backend functionality preserved
+    // const viewQuestsBtn = document.getElementById('view-quests-btn');
+    // if (viewQuestsBtn) {
+    //     viewQuestsBtn.addEventListener('click', () => {
+    //         window.location.href = 'quests.html';
+    //     });
+    // }
+
+    // View rules button
+    const viewRulesBtn = document.getElementById('view-rules-btn');
+    if (viewRulesBtn) {
+        viewRulesBtn.addEventListener('click', () => {
+            showGameRules();
+        });
+    }
+
+    // View quest rules button
+    const viewQuestRulesBtn = document.getElementById('view-quest-rules-btn');
+    if (viewQuestRulesBtn) {
+        viewQuestRulesBtn.addEventListener('click', () => {
+            showQuestRules();
         });
     }
 
@@ -197,6 +213,112 @@ function showPlayerGreeting(name) {
         nameDisplay.textContent = name;
         greetingDiv.classList.remove('hidden');
     }
+}
+
+// Show game rules modal
+async function showGameRules() {
+    const overlay = document.getElementById('game-rules-overlay');
+    const contentDiv = document.getElementById('game-rules-content');
+    const closeBtn = document.getElementById('close-rules-btn');
+
+    if (!overlay || !contentDiv) return;
+
+    // Load rules from markdown file
+    try {
+        const response = await fetch('game-rules.md');
+        if (response.ok) {
+            const markdown = await response.text();
+            contentDiv.innerHTML = parseMarkdown(markdown);
+        } else {
+            contentDiv.innerHTML = '<p>Rules file not found. Please contact the game master.</p>';
+        }
+    } catch (error) {
+        console.error('Error loading game rules:', error);
+        contentDiv.innerHTML = '<p>Error loading rules. Please contact the game master.</p>';
+    }
+
+    overlay.classList.remove('hidden');
+
+    if (closeBtn) {
+        closeBtn.onclick = () => {
+            overlay.classList.add('hidden');
+        };
+    }
+}
+
+// Show quest rules modal
+async function showQuestRules() {
+    const overlay = document.getElementById('quest-rules-overlay');
+    const contentDiv = document.getElementById('quest-rules-content');
+    const closeBtn = document.getElementById('close-quest-rules-btn');
+
+    if (!overlay || !contentDiv) return;
+
+    // Load rules from markdown file
+    try {
+        const response = await fetch('quest-rules.md');
+        if (response.ok) {
+            const markdown = await response.text();
+            contentDiv.innerHTML = parseMarkdown(markdown);
+        } else {
+            contentDiv.innerHTML = '<p>Quest rules file not found. Please contact the game master.</p>';
+        }
+    } catch (error) {
+        console.error('Error loading quest rules:', error);
+        contentDiv.innerHTML = '<p>Error loading quest rules. Please contact the game master.</p>';
+    }
+
+    overlay.classList.remove('hidden');
+
+    if (closeBtn) {
+        closeBtn.onclick = () => {
+            overlay.classList.add('hidden');
+        };
+    }
+}
+
+// Simple markdown parser
+function parseMarkdown(markdown) {
+    let html = markdown;
+
+    // Headers
+    html = html.replace(/^### (.*$)/gim, '<h3 style="color: var(--pirate-gold); margin-top: 20px; margin-bottom: 10px;">$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2 style="color: var(--pirate-gold); margin-top: 20px; margin-bottom: 10px;">$1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1 style="color: var(--pirate-gold); margin-top: 20px; margin-bottom: 10px;">$1</h1>');
+
+    // Bold
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+    // Italic
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+
+    // Links
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: var(--pirate-gold);">$1</a>');
+
+    // Unordered lists
+    html = html.replace(/^\* (.*$)/gim, '<li>$1</li>');
+    html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
+    html = html.replace(/(<li>.*<\/li>)/s, '<ul style="margin-left: 20px;">$1</ul>');
+
+    // Ordered lists
+    html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
+
+    // Line breaks
+    html = html.replace(/\n\n/g, '</p><p style="margin: 10px 0;">');
+    html = html.replace(/\n/g, '<br>');
+
+    // Wrap in paragraph
+    html = '<p style="margin: 10px 0;">' + html + '</p>';
+
+    // Code blocks
+    html = html.replace(/```(.*?)```/gs, '<pre style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; overflow-x: auto;"><code>$1</code></pre>');
+
+    // Inline code
+    html = html.replace(/`([^`]+)`/g, '<code style="background: rgba(0,0,0,0.3); padding: 2px 5px; border-radius: 3px;">$1</code>');
+
+    return html;
 }
 
 // Render unlocked clues on home page
@@ -564,8 +686,8 @@ function showMainQuestCompletionButton(code, clue) {
             <div style="text-align: center;">
                 <h3 style="color: var(--pirate-gold); margin-bottom: 10px;">✅ Quest Completed!</h3>
                 ${clue.requiresApproval ?
-                    '<p style="color: var(--pirate-cream);">⏳ Awaiting admin approval for your reward!</p>' :
-                    `<p style="color: var(--pirate-cream);">💰 You earned ${clue.reward || 0} doubloons!</p>`
+                    '<p style="color: var(--pirate-cream);">⏳ Awaiting admin approval!</p>' :
+                    '<p style="color: var(--pirate-cream);">✅ Quest completed!</p>'
                 }
             </div>
         `;
@@ -577,7 +699,6 @@ function showMainQuestCompletionButton(code, clue) {
                 <p style="color: var(--pirate-cream); margin-bottom: 15px;">
                     Found the completion code? Enter it to complete this quest!
                 </p>
-                ${clue.reward > 0 ? `<p style="color: var(--pirate-gold); font-weight: bold; margin-bottom: 15px;">Reward: 💰 ${clue.reward} Doubloons</p>` : ''}
                 <button id="complete-main-quest-btn" class="nav-btn primary" style="background: var(--pirate-gold); color: var(--pirate-brown); width: 100%; max-width: 300px;">
                     Complete Quest
                 </button>
@@ -689,17 +810,16 @@ async function completeMainQuestClue(code, clue) {
             completed: progress.completed
         });
 
+        // Doubloons now tracked physically
         // Award doubloons if not requiring approval
-        if (!clue.requiresApproval && clue.reward > 0) {
-            await awardDoubloons(progress.playerName, clue.reward, `Completed main quest: ${clue.title}`);
-        }
+        // if (!clue.requiresApproval && clue.reward > 0) {
+        //     await awardDoubloons(progress.playerName, clue.reward, `Completed main quest: ${clue.title}`);
+        // }
     }
 
     // Show success message
     if (clue.requiresApproval) {
-        alert(`Quest completed! Waiting for admin approval to receive ${clue.reward} doubloons.`);
-    } else if (clue.reward > 0) {
-        alert(`Quest completed! You earned ${clue.reward} doubloons!`);
+        alert(`Quest completed! Waiting for admin approval.`);
     } else {
         alert(`Quest completed!`);
     }

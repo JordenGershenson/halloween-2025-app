@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeQuestsPage(playerName) {
     // Display player info
     document.getElementById('quests-player-name').textContent = playerName;
-    updateDoubloonDisplay(playerName);
+    // Doubloons now tracked physically
+    // updateDoubloonDisplay(playerName);
 
     // Load quests
     loadQuests(playerName);
@@ -37,10 +38,11 @@ function initializeQuestsPage(playerName) {
     }
 }
 
-async function updateDoubloonDisplay(playerName) {
-    const playerData = await getPlayerDoubloons(playerName);
-    document.getElementById('player-doubloon-count').textContent = playerData.total;
-}
+// Doubloons now tracked physically
+// async function updateDoubloonDisplay(playerName) {
+//     const playerData = await getPlayerDoubloons(playerName);
+//     document.getElementById('player-doubloon-count').textContent = playerData.total;
+// }
 
 async function loadQuests(playerName) {
     const allQuests = await getQuests();
@@ -151,21 +153,23 @@ function createQuestCard(quest, status, playerName) {
             </div>`;
         } else {
             statusHtml = `<div style="background: rgba(76, 175, 80, 0.2); padding: 10px; border-radius: 5px; margin: 10px 0; text-align: center; color: #4CAF50;">
-                ✅ Auto-Completed! Doubloons awarded!
+                ✅ Auto-Completed!
             </div>`;
         }
     } else if (status === 'completed') {
         icon = '✅';
         statusHtml = `<div style="background: rgba(76, 175, 80, 0.3); padding: 10px; border-radius: 5px; margin: 10px 0; text-align: center; color: #4CAF50; font-weight: bold;">
-            ✅ COMPLETED! Doubloons Received!
+            ✅ COMPLETED!
         </div>`;
     }
 
-    const rewardHtml = quest.reward > 0 ? `
-        <div class="unlocked-clue-code" style="background: rgba(212, 175, 55, 0.2); padding: 8px; border-radius: 5px; font-weight: bold;">
-            Reward: 💰 ${quest.reward} Doubloons
-        </div>
-    ` : '';
+    // Doubloons now tracked physically
+    // const rewardHtml = quest.reward > 0 ? `
+    //     <div class="unlocked-clue-code" style="background: rgba(212, 175, 55, 0.2); padding: 8px; border-radius: 5px; font-weight: bold;">
+    //         Reward: 💰 ${quest.reward} Doubloons
+    //     </div>
+    // ` : '';
+    const rewardHtml = '';
 
     card.innerHTML = `
         <div class="unlocked-clue-icon">${icon}</div>
@@ -197,14 +201,13 @@ async function discoverQuest(questId, playerName) {
 
             // Show appropriate message
             if (quest.requiresApproval) {
-                alert(`Quest discovered! Waiting for admin approval to receive ${quest.reward} doubloons.`);
-            } else if (quest.reward > 0) {
-                alert(`Quest discovered and completed! You earned ${quest.reward} doubloons!`);
+                alert(`Quest discovered! Waiting for admin approval.`);
             } else {
-                alert(`Quest discovered!`);
+                alert(`Quest discovered and completed!`);
             }
 
-            updateDoubloonDisplay(playerName);
+            // Doubloons now tracked physically
+            // updateDoubloonDisplay(playerName);
             loadQuests(playerName);
         }
     }
@@ -237,14 +240,13 @@ function showDiscoveryModal(quest, playerName) {
 
             // Show appropriate message
             if (quest.requiresApproval) {
-                alert(`Quest discovered! Waiting for admin approval to receive ${quest.reward} doubloons.`);
-            } else if (quest.reward > 0) {
-                alert(`Quest discovered and completed! You earned ${quest.reward} doubloons!`);
+                alert(`Quest discovered! Waiting for admin approval.`);
             } else {
-                alert(`Quest discovered!`);
+                alert(`Quest discovered and completed!`);
             }
 
-            updateDoubloonDisplay(playerName);
+            // Doubloons now tracked physically
+            // updateDoubloonDisplay(playerName);
             loadQuests(playerName);
         } else {
             errorDiv.textContent = 'Wrong code, ye scurvy dog!';

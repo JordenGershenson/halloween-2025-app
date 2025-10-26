@@ -43,7 +43,8 @@
             <div class="admin-tabs">
                 <button class="admin-tab active" data-tab="dashboard">📊 Dashboard</button>
                 <button class="admin-tab" data-tab="quests">📜 Quest Manager</button>
-                <button class="admin-tab" data-tab="doubloons">💰 Doubloons</button>
+                <!-- Doubloons now tracked physically -->
+                <!-- <button class="admin-tab" data-tab="doubloons">💰 Doubloons</button> -->
                 <button class="admin-tab" data-tab="players">👥 Players</button>
             </div>
 
@@ -118,7 +119,7 @@
                                 <option value="side">⚔️ Side Quest</option>
                                 <option value="main">⚓ Main Quest</option>
                             </select>
-                            <input type="number" id="quest-reward" class="admin-input" placeholder="Doubloon Reward" min="0" max="1000" value="10">
+                            <input type="number" id="quest-reward" class="admin-input" placeholder="Reward Points (for reference)" min="0" max="1000" value="10">
                         </div>
                         <input type="text" id="quest-code" class="admin-input" placeholder="Completion Code (optional)" maxlength="10">
                         <label style="display: flex; align-items: center; gap: 10px; color: var(--pirate-cream); margin: 10px 0;">
@@ -146,8 +147,8 @@
                 </div>
             </div>
 
-            <!-- Doubloons Tab -->
-            <div id="doubloons-tab" class="admin-tab-content">
+            <!-- Doubloons Tab - Hidden (tracked physically now) -->
+            <div id="doubloons-tab" class="admin-tab-content" style="display: none;">
                 <h2 class="section-heading">Doubloon Management</h2>
 
                 <!-- Award Doubloons -->

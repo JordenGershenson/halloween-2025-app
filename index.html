@@ -69,11 +69,36 @@
             </div>
 
             <div style="text-align: center; margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <button id="view-quests-btn" class="nav-btn secondary">📜 Side Quests</button>
+                <!-- Side quests button hidden but backend functionality preserved -->
+                <!-- <button id="view-quests-btn" class="nav-btn secondary">📜 Side Quests</button> -->
                 <button id="view-leaderboard-btn" class="nav-btn secondary">🏆 View Leaderboard</button>
+                <button id="view-rules-btn" class="nav-btn secondary">📖 Game Rules</button>
+                <button id="view-quest-rules-btn" class="nav-btn secondary">⚔️ Quest Rules</button>
             </div>
 
             <div class="decoration">⚓ ☠️ ⚓</div>
+        </div>
+    </div>
+
+    <!-- Game Rules Modal -->
+    <div id="game-rules-overlay" class="player-name-overlay hidden">
+        <div class="player-name-modal" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <h2 class="modal-title">📖 Game Rules 📖</h2>
+            <div id="game-rules-content" class="game-rules-content" style="text-align: left; padding: 15px; line-height: 1.6;">
+                <!-- Rules content will be loaded here -->
+            </div>
+            <button id="close-rules-btn" class="submit-name-btn">Close</button>
+        </div>
+    </div>
+
+    <!-- Quest Rules Modal -->
+    <div id="quest-rules-overlay" class="player-name-overlay hidden">
+        <div class="player-name-modal" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <h2 class="modal-title">⚔️ Quest Rules ⚔️</h2>
+            <div id="quest-rules-content" class="game-rules-content" style="text-align: left; padding: 15px; line-height: 1.6;">
+                <!-- Quest rules content will be loaded here -->
+            </div>
+            <button id="close-quest-rules-btn" class="submit-name-btn">Close</button>
         </div>
     </div>
 

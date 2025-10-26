@@ -10,6 +10,10 @@ services:
       - ./game-data.json:/app/game-data.json
       # Mount config for easy updates
       - ./config.json:/app/config.json
+      # Mount game rules for easy updates
+      - ./game-rules.md:/app/game-rules.md
+      # Mount quest rules for easy updates
+      - ./quest-rules.md:/app/quest-rules.md
     restart: unless-stopped
     environment:
       - NODE_ENV=production
