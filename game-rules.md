@@ -9,6 +9,7 @@ Find all the hidden clues scattered around the ship and solve the mystery of Cap
 - Look around for physical clues hidden throughout the location
 - Each clue has a **4-character code** written on it
 - Codes can contain letters and numbers (e.g., "AB12", "X7Y9")
+- Some quests require an extra passphrase to complete!
 
 ### 2. Entering Codes
 - Enter each code you find into the app on the main page
@@ -26,7 +27,7 @@ Find all the hidden clues scattered around the ship and solve the mystery of Cap
 - You can revisit any clue you've already discovered
 - The progress bar shows how many clues you've found
 
-### 5. Winning
+### 5. Completing the Quest
 - Find all the clues to complete the treasure hunt
 - Your completion time is automatically recorded
 - Check the leaderboard to see how you rank against other pirates!

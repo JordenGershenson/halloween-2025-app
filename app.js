@@ -277,48 +277,144 @@ async function showQuestRules() {
     }
 }
 
-// Simple markdown parser
+// Improved markdown parser with nested list support
 function parseMarkdown(markdown) {
-    let html = markdown;
+    const lines = markdown.split('\n');
+    let html = '';
+    let inList = false;
+    let listStack = []; // Track nesting levels
+    let inParagraph = false;
+    let inCodeBlock = false;
+    let codeBlockContent = '';
 
-    // Headers
-    html = html.replace(/^### (.*$)/gim, '<h3 style="color: var(--pirate-gold); margin-top: 20px; margin-bottom: 10px;">$1</h3>');
-    html = html.replace(/^## (.*$)/gim, '<h2 style="color: var(--pirate-gold); margin-top: 20px; margin-bottom: 10px;">$1</h2>');
-    html = html.replace(/^# (.*$)/gim, '<h1 style="color: var(--pirate-gold); margin-top: 20px; margin-bottom: 10px;">$1</h1>');
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
 
-    // Bold
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
+        // Code blocks
+        if (line.startsWith('```')) {
+            if (inCodeBlock) {
+                // End code block
+                html += '<pre style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; overflow-x: auto; margin: 10px 0;"><code>' + codeBlockContent + '</code></pre>';
+                codeBlockContent = '';
+                inCodeBlock = false;
+            } else {
+                // Start code block
+                if (inParagraph) {
+                    html += '</p>';
+                    inParagraph = false;
+                }
+                inCodeBlock = true;
+            }
+            continue;
+        }
 
-    // Italic
-    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+        if (inCodeBlock) {
+            codeBlockContent += line + '\n';
+            continue;
+        }
 
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: var(--pirate-gold);">$1</a>');
+        // Headers
+        if (line.startsWith('### ')) {
+            if (inParagraph) { html += '</p>'; inParagraph = false; }
+            closeAllLists();
+            html += '<h3 style="color: var(--pirate-gold); margin-top: 20px; margin-bottom: 10px;">' + processInline(line.substring(4)) + '</h3>';
+            continue;
+        }
+        if (line.startsWith('## ')) {
+            if (inParagraph) { html += '</p>'; inParagraph = false; }
+            closeAllLists();
+            html += '<h2 style="color: var(--pirate-gold); margin-top: 20px; margin-bottom: 10px;">' + processInline(line.substring(3)) + '</h2>';
+            continue;
+        }
+        if (line.startsWith('# ')) {
+            if (inParagraph) { html += '</p>'; inParagraph = false; }
+            closeAllLists();
+            html += '<h1 style="color: var(--pirate-gold); margin-top: 20px; margin-bottom: 10px;">' + processInline(line.substring(2)) + '</h1>';
+            continue;
+        }
 
-    // Unordered lists
-    html = html.replace(/^\* (.*$)/gim, '<li>$1</li>');
-    html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
-    html = html.replace(/(<li>.*<\/li>)/s, '<ul style="margin-left: 20px;">$1</ul>');
+        // List items (with indentation support)
+        const listMatch = line.match(/^(\s*)([-*]|\d+\.)\s+(.+)$/);
+        if (listMatch) {
+            if (inParagraph) { html += '</p>'; inParagraph = false; }
 
-    // Ordered lists
-    html = html.replace(/^\d+\. (.*$)/gim, '<li>$1</li>');
+            const indent = listMatch[1].length;
+            const content = listMatch[3];
 
-    // Line breaks
-    html = html.replace(/\n\n/g, '</p><p style="margin: 10px 0;">');
-    html = html.replace(/\n/g, '<br>');
+            // Determine nesting level (every 2 spaces = 1 level)
+            const level = Math.floor(indent / 2);
 
-    // Wrap in paragraph
-    html = '<p style="margin: 10px 0;">' + html + '</p>';
+            // Adjust list stack to match current level
+            while (listStack.length > level + 1) {
+                html += '</ul>';
+                listStack.pop();
+            }
 
-    // Code blocks
-    html = html.replace(/```(.*?)```/gs, '<pre style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; overflow-x: auto;"><code>$1</code></pre>');
+            if (listStack.length === level) {
+                html += '<ul style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px;">';
+                listStack.push(level);
+            }
 
-    // Inline code
-    html = html.replace(/`([^`]+)`/g, '<code style="background: rgba(0,0,0,0.3); padding: 2px 5px; border-radius: 3px;">$1</code>');
+            html += '<li style="margin: 3px 0;">' + processInline(content) + '</li>';
+            inList = true;
+            continue;
+        }
+
+        // Close lists if we're no longer in one
+        if (inList && line.trim() !== '') {
+            closeAllLists();
+        }
+
+        // Empty lines
+        if (line.trim() === '') {
+            if (inParagraph) {
+                html += '</p>';
+                inParagraph = false;
+            }
+            closeAllLists();
+            continue;
+        }
+
+        // Regular paragraphs
+        if (!inParagraph && line.trim() !== '') {
+            html += '<p style="margin: 10px 0; line-height: 1.6;">';
+            inParagraph = true;
+        }
+
+        html += processInline(line) + ' ';
+    }
+
+    // Close any open tags
+    if (inParagraph) html += '</p>';
+    closeAllLists();
 
     return html;
+
+    function closeAllLists() {
+        while (listStack.length > 0) {
+            html += '</ul>';
+            listStack.pop();
+        }
+        inList = false;
+    }
+
+    function processInline(text) {
+        // Bold
+        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        text = text.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+        // Italic (but not if surrounded by bold markers)
+        text = text.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>');
+        text = text.replace(/(?<!_)_([^_]+)_(?!_)/g, '<em>$1</em>');
+
+        // Links
+        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: var(--pirate-gold);">$1</a>');
+
+        // Inline code
+        text = text.replace(/`([^`]+)`/g, '<code style="background: rgba(0,0,0,0.3); padding: 2px 5px; border-radius: 3px;">$1</code>');
+
+        return text;
+    }
 }
 
 // Render unlocked clues on home page

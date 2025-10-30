@@ -1,15 +1,15 @@
 {
   "title": "The Curse of the Crimson Charter",
-  "totalClues": 9,
+  "totalClues": 11,
   "hintUnlockTimes": [
     0,
     300,
     600
   ],
   "clues": {
-    "TIDE": {
-      "title": "The Quartermaster's Warning",
-      "story": "Welcome aboard the Crimson Revenge! Ye've discovered Quartermaster Gray's hidden log: 'Captain Rourke has shattered the Crimson Charter—that damned contract that binds sailors' souls. The Company seeks thirteen fragments, but I've hidden mine where dead men tell no lies. Find he who speaks without breath, whose testimony needs no oath, for the dead keep the most honest accounts.'",
+    "HELO": {
+      "title": "The Quartermaster's Welcome",
+      "story": "Welcome aboard the Crimson Revenge! Ye've discovered Quartermaster Gray's hidden log:",
       "hints": [
         "Dead men tell no tales... but what if they could still speak?",
         "An honest testimony needs no flesh, no blood, no beating heart...",
@@ -88,7 +88,7 @@
         "Claim your reward and make your choice—the crew awaits your decision!"
       ],
       "completionCode": "CHARTER",
-      "reward": 100,
+      "reward": 0,
       "requiresApproval": true
     }
   },
