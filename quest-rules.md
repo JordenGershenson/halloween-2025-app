@@ -27,16 +27,16 @@ PvP quests will be posted by the questmaster throughout the night. Combat is the
 ### Combat Rounds
 There are three phases to a combat round: Pre-Combat, Flip, and Post-Combat.
 - Pre-Combat
-  - Players may play any one rare card that is marked "Pre-Combat" from their hand
+  - Players may choose play any one rare card that is marked "Pre-Combat" from their hand
 - Flip (Main Combat)
-    - Players choose any one "Shot Card" (Common and Uncommon Cards, valued 2-Ace) and may also choose up to one accompanying "On-Flip" rare card. 
-    - Both players play these cards face down, and then at the same time, flip up the cards.
-    - The player who plays the Shot Card with the highest value wins this combat.
-    - Ties go to the defender of the combat.
+  - Players choose any one "Shot Card" (Common and Uncommon Cards, valued 2-Ace) and may also choose up to one accompanying "On-Flip" rare card. 
+  - Both players play these cards face down, and then at the same time, flip up the cards.
+  - The player who plays the Shot Card with the highest value wins this combat.
+  - The loser of the combat pays **5 doubloons** to the winner after On-Flip effects have been resolved and when the winner of the combat has been decided.
+  - Ties go to the defender of the combat.
 - Post-Combat
-    - Players may play any one rare card that is marked "Post-Combat" from their hand.
+  - Players may play any one rare card that is marked "Post-Combat" from their hand.
 - Combat Resolution
-  - The winner of the combat steals **5 doubloons** from the loser of the combat.
   - All cards played during the combat round are exchanged between the two players. This includes Rare Cards.
     - Ex: Player A plays 1 Pre-Combat Card, 1 Shot Card and 1 Post-Combat Card. Player B plays 1 Shot Card. At the end of the combat, Player A recieves Player B's 1 Shot Card; Player B recieves Player A's Pre-Combat Card, Shot Card, and Post-Combat card.
 

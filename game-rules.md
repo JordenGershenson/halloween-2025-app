@@ -8,8 +8,6 @@ Find all the hidden clues scattered around the ship and solve the mystery of Cap
 ### 1. Finding Clues
 - Look around for physical clues hidden throughout the location
 - Each clue has a **4-character code** written on it
-- Codes can contain letters and numbers (e.g., "AB12", "X7Y9")
-- Some quests require an extra passphrase to complete!
 
 ### 2. Entering Codes
 - Enter each code you find into the app on the main page

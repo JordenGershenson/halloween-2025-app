@@ -4,9 +4,9 @@
 3: Master at arms, in drink locker
     (Saw the master gunner with one the other day when he was outside prepping the cannons)
 4: Cook, on Knife Stand
-    (Marines keep asking for more grog, hid on bottom of bottle)
+    (Borrowed a knife from the surgeon)
 5: Surgeon, In Book
-    (I had to borrow a knife from the cook)
+    (Helped drain an abcess from the gunner)
 6: Master Gunner, in outside cannon
     (Saw the navigator with one, map down the stairwell)
 7: Navigator, around the map or on compass
@@ -17,6 +17,6 @@
     (Leads to captain at the wheel)
 10: Captain, in the spoke of the wheel
     (First mate had a lockbox with the final fragment)
-11: The First M8
+11: The First Mate
     (Lockbox thingy)
     

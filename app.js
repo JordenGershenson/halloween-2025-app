@@ -426,7 +426,7 @@ function renderUnlockedClues() {
     if (!unlockedSection || !unlockedList) return;
 
     // Icons for each clue (in order)
-    const clueIcons = ['⚓', '🍖', '🛏️', '🔭', '📦'];
+    const clueIcons = ['⚓', '🍾', '🔫', '🔭', '📦', '🗺️', '🍗', '💰', '🏴‍☠️', '💉', '☠️'];
 
     if (progress.foundCodes.length === 0) {
         unlockedSection.classList.add('hidden');
@@ -925,7 +925,7 @@ async function completeMainQuestClue(code, clue) {
 }
 
 // Completion Page Logic
-function initializeCompletionPage() {
+async function initializeCompletionPage() {
     const progress = getProgress();
 
     if (!progress.completed) {
@@ -970,26 +970,26 @@ function initializeCompletionPage() {
 
     if (!progress.leaderboardSubmitted && nameEntrySection) {
         if (playerName) {
-            // Auto-submit with player name
-            submitToLeaderboard(playerName, duration);
+            // Auto-submit with player name (use server API)
+            await submitToLeaderboard(playerName, duration, config.totalClues);
             progress.leaderboardSubmitted = true;
             localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-            showLeaderboardPosition(playerName, duration);
+            await showLeaderboardPosition(playerName, duration);
         } else {
             // Show name entry form (fallback if no player name)
             nameEntrySection.classList.remove('hidden');
 
             // Handle name submission
-            submitNameBtn.addEventListener('click', () => {
+            submitNameBtn.addEventListener('click', async () => {
                 const name = pirateNameInput.value.trim();
                 if (name.length > 0) {
-                    submitToLeaderboard(name, duration);
+                    await submitToLeaderboard(name, duration, config.totalClues); // Use server API
                     progress.leaderboardSubmitted = true;
                     progress.playerName = name;
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
 
                     nameEntrySection.classList.add('hidden');
-                    showLeaderboardPosition(name, duration);
+                    await showLeaderboardPosition(name, duration);
                 } else {
                     pirateNameInput.focus();
                     pirateNameInput.style.borderColor = 'red';
@@ -1009,7 +1009,7 @@ function initializeCompletionPage() {
             pirateNameInput.focus();
         }
     } else if (progress.leaderboardSubmitted && leaderboardPosition) {
-        showLeaderboardPosition(playerName, duration);
+        await showLeaderboardPosition(playerName, duration);
     }
 
     // Setup navigation buttons
@@ -1033,11 +1033,11 @@ function initializeCompletionPage() {
 }
 
 // Show leaderboard position message
-function showLeaderboardPosition(name, duration) {
+async function showLeaderboardPosition(name, duration) {
     const leaderboardPosition = document.getElementById('leaderboard-position');
     if (!leaderboardPosition) return;
 
-    const leaderboard = getLeaderboard();
+    const leaderboard = await getLeaderboard(); // Fetch from server API
     const rank = leaderboard.findIndex(entry => entry.name === name && entry.duration === duration) + 1;
 
     if (rank > 0) {
@@ -1056,53 +1056,16 @@ function formatDuration(ms) {
 }
 
 // ===== LEADERBOARD FUNCTIONS =====
-
-const LEADERBOARD_KEY = 'pirateHuntLeaderboard';
-const ACTIVE_PLAYERS_KEY = 'pirateHuntActivePlayers';
-
-// Submit score to leaderboard
-function submitToLeaderboard(name, duration) {
-    const leaderboard = getLeaderboard();
-
-    const entry = {
-        name: name,
-        duration: duration,
-        date: new Date().toISOString(),
-        cluesFound: config.totalClues
-    };
-
-    leaderboard.push(entry);
-
-    // Sort by duration (fastest first)
-    leaderboard.sort((a, b) => a.duration - b.duration);
-
-    // Keep only top 50
-    const trimmedLeaderboard = leaderboard.slice(0, 50);
-
-    localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(trimmedLeaderboard));
-}
-
-// Get leaderboard data
-function getLeaderboard() {
-    const stored = localStorage.getItem(LEADERBOARD_KEY);
-    if (stored) {
-        return JSON.parse(stored);
-    }
-    return [];
-}
-
-// Clear leaderboard
-function clearLeaderboard() {
-    localStorage.removeItem(LEADERBOARD_KEY);
-}
+// Note: Leaderboard functions (getLeaderboard, submitToLeaderboard, clearLeaderboardData, getActivePlayers)
+// are now imported from api.js and use the server API for cross-client synchronization
 
 // Initialize leaderboard page
-function initializeLeaderboardPage() {
-    // Render active players section
-    renderActivePlayers();
+async function initializeLeaderboardPage() {
+    // Render active players section (from server API)
+    await renderActivePlayers();
 
-    // Render completed leaderboard
-    const leaderboard = getLeaderboard();
+    // Render completed leaderboard (from server API)
+    const leaderboard = await getLeaderboard();
     const container = document.getElementById('leaderboard-container');
     const emptyMessage = document.getElementById('empty-leaderboard');
 
@@ -1128,10 +1091,9 @@ function initializeLeaderboardPage() {
     }
 
     if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
+        clearBtn.addEventListener('click', async () => {
             if (confirm('Are ye sure ye want to clear the entire leaderboard? This cannot be undone!')) {
-                clearLeaderboard();
-                localStorage.removeItem(ACTIVE_PLAYERS_KEY); // Also clear active players
+                await clearLeaderboardData(); // Use API function from api.js
                 window.location.reload();
             }
         });
@@ -1193,55 +1155,12 @@ function escapeHtml(text) {
 }
 
 // ===== ACTIVE PLAYERS TRACKING =====
-
-// Update active player progress
-function updateActivePlayer(progress) {
-    if (!progress.playerName || progress.completed) return;
-
-    const activePlayers = getActivePlayers();
-
-    // Find or create player entry
-    let playerEntry = activePlayers.find(p => p.name === progress.playerName);
-
-    if (playerEntry) {
-        // Update existing player
-        playerEntry.cluesFound = progress.foundCodes.length;
-        playerEntry.lastUpdated = new Date().toISOString();
-    } else {
-        // Add new player
-        playerEntry = {
-            name: progress.playerName,
-            cluesFound: progress.foundCodes.length,
-            startTime: progress.startTime,
-            lastUpdated: new Date().toISOString()
-        };
-        activePlayers.push(playerEntry);
-    }
-
-    localStorage.setItem(ACTIVE_PLAYERS_KEY, JSON.stringify(activePlayers));
-}
-
-// Remove player from active list
-function removeActivePlayer(playerName) {
-    if (!playerName) return;
-
-    const activePlayers = getActivePlayers();
-    const filtered = activePlayers.filter(p => p.name !== playerName);
-    localStorage.setItem(ACTIVE_PLAYERS_KEY, JSON.stringify(filtered));
-}
-
-// Get active players
-function getActivePlayers() {
-    const stored = localStorage.getItem(ACTIVE_PLAYERS_KEY);
-    if (stored) {
-        return JSON.parse(stored);
-    }
-    return [];
-}
+// Note: Active player tracking is now handled by the server through registerOrUpdatePlayer API
+// The server automatically adds/updates players and removes them when they complete the hunt
 
 // Render active players on leaderboard
-function renderActivePlayers() {
-    const activePlayers = getActivePlayers();
+async function renderActivePlayers() {
+    const activePlayers = await getActivePlayers(); // Fetch from server API
     const section = document.getElementById('active-players-section');
     const container = document.getElementById('active-players-list');
 

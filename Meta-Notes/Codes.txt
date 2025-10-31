@@ -8,7 +8,7 @@ GLVE -
 RWOK - Cook, On Knives
 CYJP - Purser, In Treasure
 WNES - Captain, In Wheel
-DJTZ
+DJTZ - First Mate
 VHEM
 KRPU
 LOQS

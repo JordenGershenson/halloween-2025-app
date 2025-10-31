@@ -8,88 +8,103 @@
   ],
   "clues": {
     "HELO": {
-      "title": "The Quartermaster's Welcome",
-      "story": "Welcome aboard the Crimson Revenge! Ye've discovered Quartermaster Gray's hidden log:",
+      "title": "The Quartermaster",
+      "story": "Quest placeholder text",
       "hints": [
-        "Dead men tell no tales... but what if they could still speak?",
-        "An honest testimony needs no flesh, no blood, no beating heart...",
-        "The skeleton in the main deck has something to say—check his person carefully!"
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
       ]
     },
-    "BONE": {
-      "title": "The Skeleton's Testament",
-      "story": "Bosun Cray's bones rattle with secrets: 'They tortured me for Rourke's location, stripped flesh from bone, yet I revealed nothing. Now I guard this truth: The Charter was signed by 247 souls, written in their blood. Below deck lurks Grimm's messenger — neither living nor truly dead.'",
+    "QJTN": {
+      "title": "The Marine",
+      "story": "Quest placeholder text - Marine on bottle",
       "hints": [
-        "The cursed know their cursed kin — find what should be dead yet moves...",
-        "Between the upper deck and the depths below, trapped behind bars of rust...",
-        "The caged creature on the stairway holds a scrap of the charter... "
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
       ]
     },
-    "HELM": {
-      "title": "The Cursed Pet's Memory",
-      "story": "The undead creature whimpers 'helm... helm... helm...' endlessly. A note beneath its cage reads: 'Grimm's beast remembers where its master made his last stand as mortal captain. The wheel remembers all who've held it — eight spokes for eight directions, but only one points true. Where sunset meets the horizon, there you'll find what Grimm sought. The spoke that chases the dying light holds a hidden latch.'",
+    "PSYW": {
+      "title": "The Master at Arms",
+      "story": "Quest placeholder text - Master at Arms in drink locker",
       "hints": [
-        "Eight spokes, eight directions, but sailors know which one guides them to sunset...",
-        "The wheel remembers... the western spoke knows where the sun dies each day...",
-        "Check the ship's wheel in the living room — the spoke pointing west (left if facing the helm) has a secret!"
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
       ]
     },
-    "WEST": {
-      "title": "The Navigator's Secret",
-      "story": "Behind the western spoke, a hidden compass rose! Its center can be pressed, revealing an old shipping manifest: 'The Company documents everything — their weakness and strength. Find their ledger of souls, for in their careful accounting lies their damnation. But beware, the ledger speaks in pairs — red ink for the taken, black for the dead. When you find it, remember: the dead tell the truth, but only the living can act upon it.'",
+    "RWOK": {
+      "title": "The Cook",
+      "story": "Quest placeholder text - Cook on knife stand",
       "hints": [
-        "The Company's greatest weakness is their meticulous record-keeping...",
-        "Where would one display important documents? Where would a ledger be kept for all to see their crimes?",
-        "Check the dining area or kitchen island for a large ledger book!"
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
       ]
     },
-    "SOUL": {
-      "title": "The Ledger of Lost Souls",
-      "story": "Grimm's ledger reveals horrors in two columns: RED INK shows 247 lines pressed into service, 89 who died in the Company's wars, 31 executed as deserters. BLACK INK shows different numbers: 107, 205, 402, 308. Madame Corbeau's ghost has written in the margins: 'Red ink counts souls, black ink counts coins. Four coins were cursed with these numbers — skull, anchor, cross and crown.",
+    "AMOS": {
+      "title": "The Surgeon",
+      "story": "Quest placeholder text - Surgeon in book",
       "hints": [
-        "The descent into darkness requires more than courage — what do the red numbers share?",
-        "The path below opens only for those who know the full weight of the Company's sins...",
-        "Add all the red ink numbers together: 247 + 89 + 31 = 0367. Use this code for the depths!"
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
       ]
     },
-    "0367": {
-      "title": "Whispers from the Depths",
-      "story": "The basement writhes with tentacled horrors — Davy Jones' crew made manifest! Among the decay, ye spot four peculiar coins in the treasure hoard, exactly as the ledger foretold: A skull coin, an anchor coin, a crown coin, and a cross coin. But there's more—carved into the wall, a message: 'Cookie Morris was no simple cook. He served riddles with his meals. The oven holds his puzzle box, but it opens only for those who understand the Pirates' Proof.'",
+    "MBFX": {
+      "title": "The Master Gunner",
+      "story": "Quest placeholder text - Master Gunner in outside cannon",
       "hints": [
-        "Find them in false treasure, for they unlock Cook's secret. But first, brave the depths where the tentacled ones dwell.",
-        "| ☠️ | ⚓️ | 👑 | ☩ |",
-        "After the dust settled, Cookie Morris counted 7 Skulls, 5 Anchors, 8 Crowns, 2 Crosses"
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
       ]
     },
-    "MAPS": {
-      "title": "The Map Fragment",
-      "story": "The puzzle box clicks open! Inside, a piece of torn map and a brass sextant. The map shows constellations, but they're wrong — stars arranged to spell words: STAR",
+    "TANQ": {
+      "title": "The Navigator",
+      "story": "Quest placeholder text - Navigator on map or compass",
       "hints": [
-        "What cipher was being used to guide toward the storm's eye? Cook's experiences influenced many of his tricks",
-        "Consider Cook's code - perhaps this code may interact with the stars",
-        "S - ☠️ | T - ⚓️ ...."
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
       ]
     },
-    "EYES": {
-      "title": "The Storm's Eye",
-      "story": "You know now where",
+    "ZKRL": {
+      "title": "The Lookout",
+      "story": "Quest placeholder text - Lookout on skeleton",
       "hints": [
-        "Red ink totals: 247 + 89 + 31 = 367. Black ink totals: 147 + 215 + 412 = 774...",
-        "The weight of all souls: 367 + 774 = ?",
-        "The final lockbox code is 1141, but it's been divided by 3 for a 3-digit lock: 1141 ÷ 3 = 380 (round down)"
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
       ]
     },
-    "LOCK": {
-      "title": "The Final Choice - The Crimson Charter Revealed",
-      "story": "TRIUMPHANT! The lockbox springs open, revealing the thirteenth fragment—but it's blank until touched. When you grasp it, blood-red words appear: 'The Charter can be reforged or forever scattered. Sign your name in the Ledger of Lost Souls to claim dominion over every ship, every sailor, every wave. Or cast this fragment into the ceremonial waters (the Quartermaster has them) to preserve the chaos of freedom. Choose wisely—the sea remembers all.' Inside the box also lies your earthly reward for this incredible journey!",
+    "CYJP": {
+      "title": "The Purser",
+      "story": "Quest placeholder text - Purser in treasure box",
       "hints": [
-        "This is your moment of truth—return to the Quartermaster with your decision!",
-        "Will you choose order through control, or freedom through chaos?",
-        "Claim your reward and make your choice—the crew awaits your decision!"
-      ],
-      "completionCode": "CHARTER",
-      "reward": 0,
-      "requiresApproval": true
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
+      ]
+    },
+    "WNES": {
+      "title": "The Captain",
+      "story": "Quest placeholder text - Captain in the spoke of the wheel",
+      "hints": [
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
+      ]
+    },
+    "DJTZ": {
+      "title": "The First Mate",
+      "story": "Quest placeholder text - First Mate lockbox",
+      "hints": [
+        "Hint 1",
+        "Hint 2",
+        "Hint 3"
+      ]
     }
   },
   "errorMessages": [
