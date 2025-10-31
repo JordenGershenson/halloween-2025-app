@@ -21,7 +21,7 @@
       "story": "The bottle rattles as the skeletal Marine suddenly animates. \"Oi! Who's touchin' me rum?! Oh... ye found me fragment, did ye? *hiccup* Good on ye, mate! I was the finest Marine on seven seas... when I was sober, which weren't often! HAH! That bloody Master at Arms, always lockin' up the good stuff, treatin' us like children! Well, joke's on him - heard he's been havin' himself quite the eternal drink down in the ship's grog locker. Main deck, if yer wonderin'. Now leave me to me bottle!\"",
       "hints": [
         "The Master at Arms guards the ship's spirits, even in death",
-        "Seek where the crew's drinks are kept under lock and key",
+        "He always said he had in the back of his mind to give us what for",
         "The cooler on the main deck holds more than just bottles"
       ]
     },
@@ -38,14 +38,14 @@
       "title": "The Cook",
       "story": "A formidable woman's spirit appears, cleaver still in hand. \"Well, well! Someone's been pokin' around me kitchen! Found me fragment, did ye? Smart cookies, the lot of ye. I kept these scurvy dogs fed for twenty years, I did! Me boy, the surgeon, always said I had a way with knives. Speaking of which, I borrowed one of his fancy surgical blades once - never gave it back! *cackles*. Last I saw, he was fixing up some liver, well not fixin like I'd do, but fixin it up! That bookworm probably hid his fragment in one of them dusty tomes he's always readin'. Check his surgery, but mind ye don't get blood on his precious books!\"",
       "hints": [
-        "The Surgeon treasures knowledge above gold",
-        "His fragment lies within pages of learning",
-        "Anatomy in Surgery, page 492 - the liver holds secrets"
+        "The Surgeon treasures knowledge from books, check for a hidden word",
+        "Anatomy in Surgery",
+        "the liver holds secrets"
       ]
     },
     "AMOS": {
       "title": "The Surgeon",
-      "story": "An educated specter appears, adjusting spectral spectacles. \"Ah, you've discovered my little secret. AMOS - a peculiar word from my anatomy texts, wouldn't you say? I was Royal Navy once, you know, before these rogues... recruited me. Still, I grew to respect them. Even that uncouth Master Gunner - treated him for a nasty abscess once. Ghastly business! He mentioned something about his fragment being with his beloved cannons. You'll find them defending the ship's entrance, I'd wager. Do be careful - he was always particular about his guns.\"",
+      "story": "An educated specter appears, adjusting spectral spectacles. \"Ah, you've discovered my little secret. AMOS - a peculiar word from my anatomy texts, wouldn't you say? I was Royal Navy once, you know, before these rogues... recruited me. Still, I grew to respect them. Even that uncouth Master Gunner - treated him for a nasty abscess once. Ghastly business! He mentioned something about his fragment being with his beloved cannons. Do be careful - he was always particular about his guns.\"",
       "hints": [
         "The Master Gunner keeps his fragment near his artillery",
         "The ship's defenses guard more than the entrance",
@@ -54,7 +54,7 @@
     },
     "MBFX": {
       "title": "The Master Gunner",
-      "story": "A gruff ghost materializes in a cloud of spectral gunpowder. \"WHAT IN BLAZES ARE YE DOING WITH ME GUNS?! Oh... the fragment. Right then. Listen up, ye lily-livered landlubbers! I've sent more Company ships to Davy Jones than ye've had hot dinners! These beauties here *pats cannon* never let me down. That nervous Navigator though - saw him fiddlin' with somethin' near his charts. Poor sod was always gettin' lost in his maps. There's one down by the stairs to the lower decks. Now GET MOVING before I load ye into me cannon!\"",
+      "story": "A gruff ghost materializes in a cloud of spectral gunpowder. \"WHAT IN BLAZES ARE YE DOING WITH ME GUNS?! Oh... the fragment. Right then. Listen up, ye lily-livered landlubbers! I've sent more Company ships to Davy Jones than ye've had hot dinners! These beauties here *pats cannon* never let me down. That nervous Navigator though - saw him fiddlin' with somethin' near his charts. Poor sod was always gettin' lost in his maps. Now GET MOVING before I load ye into me cannon!\"",
       "hints": [
         "The Navigator's fragment stays close to his charts",
         "Between decks, where directions matter most",
@@ -63,7 +63,7 @@
     },
     "TANQ": {
       "title": "The Navigator",
-      "story": "A trembling ghost appears, compass spinning wildly in his hand. \"Oh! Oh dear! You've found it! I wasn't very creative, was I? Just stuck it right on the map frame... I was never good at this cloak-and-dagger business. Always preferred my charts and calculations. That young Lookout, though - sharp eyes on that one. He was asking about navigation charts, and I noticed he had a fragment. You'll find him at his post, up at the bow with his spyglass. Always watching, that boy. Even in death, he keeps his vigil.\"",
+      "story": "A trembling ghost appears, compass spinning wildly in his hand. \"Oh! Oh dear! You've found it! I wasn't very creative, was I? Just stuck it right on the map frame... I was never good at this cloak-and-dagger business. Always preferred my charts and calculations. That young Lookout, though - sharp eyes on that one. He was asking about navigation charts, and I noticed he had a fragment. You'll find him at his post, up at the bow. Always watching, that boy. Even in death, he keeps his vigil.\"",
       "hints": [
         "The Lookout maintains his eternal watch at the bow",
         "His keen eyes are aided by brass and glass",
@@ -81,7 +81,7 @@
     },
     "CYJP": {
       "title": "The Purser",
-      "story": "A ghostly figure appears, coins falling through his transparent fingers. \"Ey! Whatcha doin' wit' me treasure?! Oh, da fragment... yeah, yeah, I got it. Look, I'm a businessman, see? I knows the value of everything on dis ship - every doubloon, every piece of eight! Even dat fragment! But the Captain... now there's a man worth followin'. Saw him hide his piece in the ship's wheel - the very helm he used to steer us to freedom! Smart man, hidin' it where he could always keep an eye on it. Now scram! I got phantom gold to count!\"",
+      "story": "A ghostly figure appears, coins falling through his transparent fingers. \"OY! WHADDYA THINK YOU'RE DOIN'?! That's MY treasure you're pawin' at! Oh... oh Wait, you want the fragment? *calculating look* Heh, yeah, I got it, I got it. Time is money, friend, and you're wastin' both!\n\nLook here, I'm a busiNessman, capisce? I run the numbers on this whole operation - profit margins, overhead, hazard pay, the works! Every coin, every doubloon, every piece of eight that comes through this ship? I get my cut! That fragment? Worth more than all the gold in the Company's vaults if you know how to lEverage it!\n\nBut let me tell ya somethin' - the Captain, now THAT'S a man who understands value proposition! Smart cookie, that one. Real investment-minded! Saw him stash his piece at the helm - liquid asset, always accessible, great ROI on security! The helm what steered uS to freedom AND protected his investment! That's what I call diversification!\n\nNow beat it! I got quarterly earnings to calculate and phantom gold to audit! This treasure don't count itself, and these other schmucks can't tell a doubloon from a peso! GO ON, SCRAM! Next fragment ain't gonna find itself, and time is money!\"",
       "hints": [
         "The Captain's fragment lies within his command",
         "The wheel that steered toward freedom holds a secret",
@@ -90,11 +90,11 @@
     },
     "WNES": {
       "title": "The Captain",
-      "story": "A dignified ghost materializes, tricorn hat still perfectly positioned. \"Well met, brave souls. You've nearly completed your quest. I was once a merchant myself, before I saw the Company's true nature. The Crimson Charter... an abomination against the natural rights of man! Every soul deserves freedom, not servitude to corporate masters. My First Mate holds the final piece - locked it away in a strongbox, he did. Practical man, always thinking ahead. You'll find it where we used to bake the ship's bread. This is our revolution, friend. Finish what we started. Break their chains forever!\"",
+      "story": "A dignified ghost materializes, tricorn hat still perfectly positioned. \"Well met, brave souls. You've nearly completed your quest. I was once a merchant myself, before I saw the Company's true nature. The Crimson Charter... an abomination against the natural rights of man! Every soul deserves freedom, not servitude to corporate masters. My First Mate holds the final piece - locked it away in a strongbox, he did. Practical man, always thinking ahead. You'll find it in the galley. This is our revolution, friend. Finish what we started. Break their chains forever!\"",
       "hints": [
-        "The First Mate secured his fragment under lock and key",
-        "Where bread once baked, a metal secret waits",
-        "The green lockbox rests within the oven"
+        "The First Mate secured his fragment in the heat",
+        "Something about the direction of our voyages",
+        "N-1 S-2 E-3 W-4"
       ]
     },
     "DJTZ": {
@@ -111,7 +111,6 @@
     "The Charter's magic rejects false words!",
     "Davy Jones laughs at your failed attempt!",
     "The cursed ink refuses to acknowledge that code!",
-    "Madame Corbeau's spirit denies you passage!",
     "The dead do not recognize this cipher!",
     "Grimm's ghost howls at your error!",
     "The black tide swallows incorrect answers!",
