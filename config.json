@@ -36,7 +36,7 @@
     },
     "RWOK": {
       "title": "The Cook",
-      "story": "A formidable woman's spirit appears, cleaver still in hand. \"Well, well! Someone's been pokin' around me kitchen! Found me fragment, did ye? Smart cookies, the lot of ye. I kept these scurvy dogs fed for twenty years, I did! Me boy, the surgeon, always said I had a way with knives. Speaking of which, I borrowed one of his fancy surgical blades once - never gave it back! *cackles* That bookworm probably hid his fragment in one of them dusty tomes he's always readin'. Check his surgery, but mind ye don't get blood on his precious books!\"",
+      "story": "A formidable woman's spirit appears, cleaver still in hand. \"Well, well! Someone's been pokin' around me kitchen! Found me fragment, did ye? Smart cookies, the lot of ye. I kept these scurvy dogs fed for twenty years, I did! Me boy, the surgeon, always said I had a way with knives. Speaking of which, I borrowed one of his fancy surgical blades once - never gave it back! *cackles*. Last I saw, he was fixing up some liver, well not fixin like I'd do, but fixin it up! That bookworm probably hid his fragment in one of them dusty tomes he's always readin'. Check his surgery, but mind ye don't get blood on his precious books!\"",
       "hints": [
         "The Surgeon treasures knowledge above gold",
         "His fragment lies within pages of learning",
@@ -90,7 +90,7 @@
     },
     "WNES": {
       "title": "The Captain",
-      "story": "A dignified ghost materializes, tricorn hat still perfectly positioned. \"Well met, brave souls. You've nearly completed your quest. I was once a merchant myself, before I saw the Company's true nature. The Crimson Charter... an abomination against the natural rights of man! Every soul deserves freedom, not servitude to corporate masters. My First Mate holds the final piece - locked it away in a strongbox, he did. Practical man, always thinking ahead. You'll find it where we used to bake the ship's bread. The galley oven, if memory serves. This is our revolution, friend. Finish what we started. Break their chains forever!\"",
+      "story": "A dignified ghost materializes, tricorn hat still perfectly positioned. \"Well met, brave souls. You've nearly completed your quest. I was once a merchant myself, before I saw the Company's true nature. The Crimson Charter... an abomination against the natural rights of man! Every soul deserves freedom, not servitude to corporate masters. My First Mate holds the final piece - locked it away in a strongbox, he did. Practical man, always thinking ahead. You'll find it where we used to bake the ship's bread. This is our revolution, friend. Finish what we started. Break their chains forever!\"",
       "hints": [
         "The First Mate secured his fragment under lock and key",
         "Where bread once baked, a metal secret waits",
@@ -101,7 +101,7 @@
       "title": "The First Mate",
       "story": "The First Mate's weathered ghost appears, key spinning on his spectral finger. \"Ye've done it then! All eleven fragments, gathered despite the Company's best efforts! I was the Captain's right hand for twenty years, through calm and storm alike. This lockbox... I chose the oven because fire couldn't destroy the Charter, but it could keep the Company's cold hearts at bay. Now ye hold the power to ensure freedom for all who sail these seas. But beware - Admiral Grimm approaches! The next trial awaits. Seek ye now the five relics of the Pirate King - only with their power can ye repel the Company's supernatural forces when they board this vessel! The crew's counting on ye!\"",
       "hints": [
-        "The final fragment was always meant to be found",
+        "The final fragment was always meant to be found, check in with the Quarter Master, he'll explain what to do next.",
         "Your true test begins with the five relics",
         "The Pirate King's power awaits those brave enough to claim it"
       ]
