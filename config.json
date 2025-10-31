@@ -9,101 +9,101 @@
   "clues": {
     "HELO": {
       "title": "The Quartermaster",
-      "story": "Quest placeholder text",
+      "story": "The weathered ghost materializes before you, cutlass still at his side. \"By Neptune's beard! Living souls aboard the cursed vessel! Wait... ye be not Company dogs, are ye? Ah, I see the fire in yer eyes - ye seek to keep the Charter broken! Fifty years I've waited for brave souls like yerselves. Take this fragment, guard it well! The Marine's got another piece - that drunk fool's probably still clutching his bottle somewhere on deck. Find him before Grimm's dogs do!\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The Marine never could put down his bottle, even in death",
+        "Check the grounds where a sailor might stand watch",
+        "The front lawn holds a drinking skeleton"
       ]
     },
     "QJTN": {
       "title": "The Marine",
-      "story": "Quest placeholder text - Marine on bottle",
+      "story": "The bottle rattles as the skeletal Marine suddenly animates. \"Oi! Who's touchin' me rum?! Oh... ye found me fragment, did ye? *hiccup* Good on ye, mate! I was the finest Marine on seven seas... when I was sober, which weren't often! HAH! That bloody Master at Arms, always lockin' up the good stuff, treatin' us like children! Well, joke's on him - heard he's been havin' himself quite the eternal drink down in the ship's grog locker. Main deck, if yer wonderin'. Now leave me to me bottle!\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The Master at Arms guards the ship's spirits, even in death",
+        "Seek where the crew's drinks are kept under lock and key",
+        "The cooler on the main deck holds more than just bottles"
       ]
     },
     "PSYW": {
       "title": "The Master at Arms",
-      "story": "Quest placeholder text - Master at Arms in drink locker",
+      "story": "A stern skeleton rises from the chest, rum dripping through his ethereal form. \"Stand at attention when addressing an officer! Oh... civilians. Well then. Ye found me fragment, I see. Fifty years of death taught me something - all that discipline, all that control... for what? Now I drink as I please! *laughs bitterly* The Cook though, she understood. We had an arrangement - extra rations for keeping her galley in order. Tough old bird, that one. She mentioned hiding her fragment somewhere among her tools. The galley's where ye'll be heading, if ye've got any sense!\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The Cook keeps her fragment close to her trade",
+        "Where meals are prepared, sharp tools await",
+        "The kitchen holds more than recipes - check where knives rest"
       ]
     },
     "RWOK": {
       "title": "The Cook",
-      "story": "Quest placeholder text - Cook on knife stand",
+      "story": "A formidable woman's spirit appears, cleaver still in hand. \"Well, well! Someone's been pokin' around me kitchen! Found me fragment, did ye? Smart cookies, the lot of ye. I kept these scurvy dogs fed for twenty years, I did! Me boy, the surgeon, always said I had a way with knives. Speaking of which, I borrowed one of his fancy surgical blades once - never gave it back! *cackles* That bookworm probably hid his fragment in one of them dusty tomes he's always readin'. Check his surgery, but mind ye don't get blood on his precious books!\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The Surgeon treasures knowledge above gold",
+        "His fragment lies within pages of learning",
+        "Anatomy in Surgery, page 492 - the liver holds secrets"
       ]
     },
     "AMOS": {
       "title": "The Surgeon",
-      "story": "Quest placeholder text - Surgeon in book",
+      "story": "An educated specter appears, adjusting spectral spectacles. \"Ah, you've discovered my little secret. AMOS - a peculiar word from my anatomy texts, wouldn't you say? I was Royal Navy once, you know, before these rogues... recruited me. Still, I grew to respect them. Even that uncouth Master Gunner - treated him for a nasty abscess once. Ghastly business! He mentioned something about his fragment being with his beloved cannons. You'll find them defending the ship's entrance, I'd wager. Do be careful - he was always particular about his guns.\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The Master Gunner keeps his fragment near his artillery",
+        "The ship's defenses guard more than the entrance",
+        "The front porch cannons conceal a secret on their carriages"
       ]
     },
     "MBFX": {
       "title": "The Master Gunner",
-      "story": "Quest placeholder text - Master Gunner in outside cannon",
+      "story": "A gruff ghost materializes in a cloud of spectral gunpowder. \"WHAT IN BLAZES ARE YE DOING WITH ME GUNS?! Oh... the fragment. Right then. Listen up, ye lily-livered landlubbers! I've sent more Company ships to Davy Jones than ye've had hot dinners! These beauties here *pats cannon* never let me down. That nervous Navigator though - saw him fiddlin' with somethin' near his charts. Poor sod was always gettin' lost in his maps. There's one down by the stairs to the lower decks. Now GET MOVING before I load ye into me cannon!\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The Navigator's fragment stays close to his charts",
+        "Between decks, where directions matter most",
+        "The stairwell map frames more than just geography"
       ]
     },
     "TANQ": {
       "title": "The Navigator",
-      "story": "Quest placeholder text - Navigator on map or compass",
+      "story": "A trembling ghost appears, compass spinning wildly in his hand. \"Oh! Oh dear! You've found it! I wasn't very creative, was I? Just stuck it right on the map frame... I was never good at this cloak-and-dagger business. Always preferred my charts and calculations. That young Lookout, though - sharp eyes on that one. He was asking about navigation charts, and I noticed he had a fragment. You'll find him at his post, up at the bow with his spyglass. Always watching, that boy. Even in death, he keeps his vigil.\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The Lookout maintains his eternal watch at the bow",
+        "His keen eyes are aided by brass and glass",
+        "The skeleton with the telescope guards a secret in his mouth"
       ]
     },
     "ZKRL": {
       "title": "The Lookout",
-      "story": "Quest placeholder text - Lookout on skeleton",
+      "story": "A young ghost appears, telescope at his eye. \"Cor! Ye found me hidin' spot! Mum always said I had a big mouth - guess she was right! *grins* Been keepin' watch for fifty years, I have. Seen everything from up here. Like when the Purser was countin' out shares - noticed he had a fragment with him. Greedy git took his down to the treasure hold, he did. Lower decks, past all the damage. You'll know it when ye see it - more gold than a Company director's teeth! Mind the jellyfish, though. They're right unfriendly.\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The Purser hoards his fragment with the treasure",
+        "Descend to where gold glimmers beneath the waves",
+        "The basement bathroom shower holds a chest with secrets in its lid"
       ]
     },
     "CYJP": {
       "title": "The Purser",
-      "story": "Quest placeholder text - Purser in treasure box",
+      "story": "A ghostly figure appears, coins falling through his transparent fingers. \"Ey! Whatcha doin' wit' me treasure?! Oh, da fragment... yeah, yeah, I got it. Look, I'm a businessman, see? I knows the value of everything on dis ship - every doubloon, every piece of eight! Even dat fragment! But the Captain... now there's a man worth followin'. Saw him hide his piece in the ship's wheel - the very helm he used to steer us to freedom! Smart man, hidin' it where he could always keep an eye on it. Now scram! I got phantom gold to count!\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The Captain's fragment lies within his command",
+        "The wheel that steered toward freedom holds a secret",
+        "Unscrew the spokes of the helm carefully"
       ]
     },
     "WNES": {
       "title": "The Captain",
-      "story": "Quest placeholder text - Captain in the spoke of the wheel",
+      "story": "A dignified ghost materializes, tricorn hat still perfectly positioned. \"Well met, brave souls. You've nearly completed your quest. I was once a merchant myself, before I saw the Company's true nature. The Crimson Charter... an abomination against the natural rights of man! Every soul deserves freedom, not servitude to corporate masters. My First Mate holds the final piece - locked it away in a strongbox, he did. Practical man, always thinking ahead. You'll find it where we used to bake the ship's bread. The galley oven, if memory serves. This is our revolution, friend. Finish what we started. Break their chains forever!\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The First Mate secured his fragment under lock and key",
+        "Where bread once baked, a metal secret waits",
+        "The green lockbox rests within the oven"
       ]
     },
     "DJTZ": {
       "title": "The First Mate",
-      "story": "Quest placeholder text - First Mate lockbox",
+      "story": "The First Mate's weathered ghost appears, key spinning on his spectral finger. \"Ye've done it then! All eleven fragments, gathered despite the Company's best efforts! I was the Captain's right hand for twenty years, through calm and storm alike. This lockbox... I chose the oven because fire couldn't destroy the Charter, but it could keep the Company's cold hearts at bay. Now ye hold the power to ensure freedom for all who sail these seas. But beware - Admiral Grimm approaches! The next trial awaits. Seek ye now the five relics of the Pirate King - only with their power can ye repel the Company's supernatural forces when they board this vessel! The crew's counting on ye!\"",
       "hints": [
-        "Hint 1",
-        "Hint 2",
-        "Hint 3"
+        "The final fragment was always meant to be found",
+        "Your true test begins with the five relics",
+        "The Pirate King's power awaits those brave enough to claim it"
       ]
     }
   },

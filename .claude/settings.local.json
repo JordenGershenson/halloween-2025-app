@@ -17,7 +17,11 @@
       "Bash(gh:*)",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(pkill:*)",
+      "Bash(python -m json.tool:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker exec:*)"
     ],
     "deny": [],
     "ask": []
